@@ -22,6 +22,7 @@ import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.model.PingResponse;
 import com.pddstudio.networkutils.model.PortResponse;
+import com.pddstudio.networkutils.model.ScanResult;
 import com.pddstudio.networkutils.utils.ArpUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,17 +46,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        for(ArpInfo arpInfo : NetworkUtils.get(this).getArpInfoList()) {
+       /* for(ArpInfo arpInfo : NetworkUtils.get(this).getArpInfoList()) {
             Log.d("MainActivity" , "ARP-IP: " + arpInfo.getIpAddress() + " ARP-MAC: " + arpInfo.getMacAddress());
-        }
+        }*/
 
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 NetworkUtils.get(MainActivity.this).scanSubNet();
             }
-        }).start();
+        }).start();*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                     pingService.start();
                 }*/
 
-                NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
+               // NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
+
+                NetworkUtils.get(MainActivity.this).getSubNetScannerService(subnetScannerCallback).setTimeout(2000).startScan();
 
             }
         });
@@ -149,6 +152,28 @@ public class MainActivity extends AppCompatActivity {
         public void onProcessUpdate(@NonNull Object processUpdate) {
             PortResponse portResponse = (PortResponse) processUpdate;
             Log.d("MainActivity", "Target: " + portResponse.getIpAddress() + " Port: " + portResponse.getPort() + " Open: " + portResponse.isPortOpen() + " Message: " + (portResponse.getMessage() != null ? portResponse.getMessage() : ""));
+        }
+    };
+
+    private ProcessCallback subnetScannerCallback = new ProcessCallback() {
+        @Override
+        public void onProcessStarted(@NonNull String serviceName) {
+            Toast.makeText(MainActivity.this, "onProcessStarted()", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+            Toast.makeText(MainActivity.this, "onProcessFailed()", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+            Toast.makeText(MainActivity.this, "onProcessFinished()", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProcessUpdate(@NonNull Object processUpdate) {
+            if(((ScanResult) processUpdate).isReachable()) Toast.makeText(MainActivity.this, "onProcessUpdate() : Target Address: " + ((ScanResult) processUpdate).getIpAddress(), Toast.LENGTH_SHORT).show();
         }
     };
 

@@ -7,7 +7,6 @@ import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.utils.AdBlockUtils;
 import com.pddstudio.networkutils.utils.ArpUtils;
 import com.pddstudio.networkutils.utils.IpUtils;
-import com.pddstudio.networkutils.utils.ScanUtils;
 
 import java.util.List;
 
@@ -43,6 +42,10 @@ public class NetworkUtils {
         return new PortService(processCallback);
     }
 
+    public SubnetScannerService getSubNetScannerService(ProcessCallback processCallback) {
+        return new SubnetScannerService(getSubNetAddress(), processCallback);
+    }
+
     public boolean checkDeviceUsesAdBlock() {
         return AdBlockUtils.isAdBlockActive();
     }
@@ -51,14 +54,13 @@ public class NetworkUtils {
         return ArpUtils.fetchArpList();
     }
 
-    public void scanSubNet() {
+    public String getCurrentIpAddress() {
+        return IpUtils.getCurrentIpAddress(context);
+    }
+
+    public String getSubNetAddress() {
         String ip = IpUtils.getCurrentIpAddress(context);
-        ip = ip.substring(0, ip.lastIndexOf("."));
-        try {
-            new ScanUtils().scanSubnet(ip);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return ip.substring(0, ip.lastIndexOf("."));
     }
 
 }
