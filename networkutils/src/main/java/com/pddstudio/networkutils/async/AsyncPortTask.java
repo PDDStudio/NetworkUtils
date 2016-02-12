@@ -81,4 +81,9 @@ public class AsyncPortTask extends AsyncTask<Void, PortResponse, Void> {
         processCallback.onProcessUpdate(portResponses[0]);
     }
 
+    @Override
+    public void onPostExecute(Void v) {
+        processCallback.onProcessFinished(portService.getServiceName(), "Finished Scanning all " + portList.size() + " Ports on " + target);
+    }
+
 }

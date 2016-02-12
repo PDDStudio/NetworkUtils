@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.PingService;
@@ -114,16 +115,19 @@ public class MainActivity extends AppCompatActivity {
     private ProcessCallback portScanCallback = new ProcessCallback() {
         @Override
         public void onProcessStarted(@NonNull String serviceName) {
+            Toast.makeText(MainActivity.this, "onProcessStarted()", Toast.LENGTH_SHORT).show();
             Log.d("MainActivity", "Started Service: " + serviceName);
         }
 
         @Override
         public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+            Toast.makeText(MainActivity.this, "onProcessFailed()", Toast.LENGTH_SHORT).show();
             Log.d("MainActivity", "Failed Service : " + serviceName);
         }
 
         @Override
         public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+            Toast.makeText(MainActivity.this, "onProcessFinished()", Toast.LENGTH_SHORT).show();
             Log.d("MainActivity", "Finished Service: " + serviceName);
         }
 

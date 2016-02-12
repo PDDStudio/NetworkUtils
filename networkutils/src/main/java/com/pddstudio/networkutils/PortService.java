@@ -44,7 +44,7 @@ public class PortService extends AbstractService {
 
     public PortService addPortRange(int from, int until) {
         if(from < until) {
-            for(; from < until; from++) {
+            for(; from <= until; from++) {
                 this.portList.add(from);
             }
         }
