@@ -2,6 +2,7 @@ package com.pddstudio.networkutils;
 
 import android.content.Context;
 
+import com.pddstudio.networkutils.async.AsyncConnectionInformationTask;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.utils.AdBlockUtils;
@@ -61,6 +62,10 @@ public class NetworkUtils {
     public String getSubNetAddress() {
         String ip = IpUtils.getCurrentIpAddress(context);
         return ip.substring(0, ip.lastIndexOf("."));
+    }
+
+    public void getConnectionInformation(ProcessCallback processCallback) {
+        new AsyncConnectionInformationTask(processCallback).execute();
     }
 
 }

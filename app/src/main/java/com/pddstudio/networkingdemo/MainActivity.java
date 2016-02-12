@@ -2,6 +2,7 @@ package com.pddstudio.networkingdemo;
 
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ArpInfo;
+import com.pddstudio.networkutils.model.ConnectionInformation;
 import com.pddstudio.networkutils.model.PingResponse;
 import com.pddstudio.networkutils.model.PortResponse;
 import com.pddstudio.networkutils.model.ScanResult;
@@ -57,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 NetworkUtils.get(MainActivity.this).scanSubNet();
             }
         }).start();*/
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkUtils.get(MainActivity.this).getConnectionInformation(conInfoCallback);
+            }
+        }).start();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +183,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onProcessUpdate(@NonNull Object processUpdate) {
             if(((ScanResult) processUpdate).isReachable()) Toast.makeText(MainActivity.this, "onProcessUpdate() : Target Address: " + ((ScanResult) processUpdate).getIpAddress(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private ProcessCallback conInfoCallback = new ProcessCallback() {
+        @Override
+        public void onProcessStarted(@NonNull String serviceName) {
+
+        }
+
+        @Override
+        public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+
+        }
+
+        @Override
+        public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+
+        }
+
+        @Override
+        public void onProcessUpdate(@NonNull Object processUpdate) {
+            ConnectionInformation connectionInformation = (ConnectionInformation) processUpdate;
+            Toast.makeText(MainActivity.this, "Your Country: " + connectionInformation.getCountry(), Toast.LENGTH_SHORT).show();
         }
     };
 
