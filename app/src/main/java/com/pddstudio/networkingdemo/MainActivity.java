@@ -19,8 +19,10 @@ import com.pddstudio.networkutils.PingService;
 import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
+import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.model.PingResponse;
 import com.pddstudio.networkutils.model.PortResponse;
+import com.pddstudio.networkutils.utils.ArpUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        for(ArpInfo arpInfo : NetworkUtils.get(this).getArpInfoList()) {
+            Log.d("MainActivity" , "ARP-IP: " + arpInfo.getIpAddress() + " ARP-MAC: " + arpInfo.getMacAddress());
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -3,7 +3,11 @@ package com.pddstudio.networkutils;
 import android.content.Context;
 
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
+import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.utils.AdBlockUtils;
+import com.pddstudio.networkutils.utils.ArpUtils;
+
+import java.util.List;
 
 /**
  * This Class was created by Patrick J
@@ -39,6 +43,10 @@ public class NetworkUtils {
 
     public boolean checkDeviceUsesAdBlock() {
         return AdBlockUtils.isAdBlockActive();
+    }
+
+    public List<ArpInfo> getArpInfoList() {
+        return ArpUtils.fetchArpList();
     }
 
 }
