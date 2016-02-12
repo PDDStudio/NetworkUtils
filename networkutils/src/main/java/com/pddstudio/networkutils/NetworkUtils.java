@@ -6,6 +6,8 @@ import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.utils.AdBlockUtils;
 import com.pddstudio.networkutils.utils.ArpUtils;
+import com.pddstudio.networkutils.utils.IpUtils;
+import com.pddstudio.networkutils.utils.ScanUtils;
 
 import java.util.List;
 
@@ -47,6 +49,16 @@ public class NetworkUtils {
 
     public List<ArpInfo> getArpInfoList() {
         return ArpUtils.fetchArpList();
+    }
+
+    public void scanSubNet() {
+        String ip = IpUtils.getCurrentIpAddress(context);
+        ip = ip.substring(0, ip.lastIndexOf("."));
+        try {
+            new ScanUtils().scanSubnet(ip);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

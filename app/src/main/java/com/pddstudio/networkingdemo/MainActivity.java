@@ -49,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity" , "ARP-IP: " + arpInfo.getIpAddress() + " ARP-MAC: " + arpInfo.getMacAddress());
         }
 
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkUtils.get(MainActivity.this).scanSubNet();
+            }
+        }).start();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
