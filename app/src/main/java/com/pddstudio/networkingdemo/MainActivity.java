@@ -19,6 +19,7 @@ import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.PingResponse;
+import com.pddstudio.networkutils.model.PortResponse;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
                     }
                 });
-                Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());*/
+                Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());
                 if(pingService == null) {
 
                     pingService = NetworkUtils.get(MainActivity.this).getPingService(new ProcessCallback() {
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     pingService.destroy();
                 } else {
                     pingService.start();
-                }
+                }*/
+
+                NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
 
             }
         });
@@ -107,4 +110,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private ProcessCallback portScanCallback = new ProcessCallback() {
+        @Override
+        public void onProcessStarted(@NonNull String serviceName) {
+            Log.d("MainActivity", "Started Service: " + serviceName);
+        }
+
+        @Override
+        public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+            Log.d("MainActivity", "Failed Service : " + serviceName);
+        }
+
+        @Override
+        public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+            Log.d("MainActivity", "Finished Service: " + serviceName);
+        }
+
+        @Override
+        public void onProcessUpdate(@NonNull Object processUpdate) {
+            PortResponse portResponse = (PortResponse) processUpdate;
+            Log.d("MainActivity", "Target: " + portResponse.getIpAddress() + " Port: " + portResponse.getPort() + " Open: " + portResponse.isPortOpen() + " Message: " + (portResponse.getMessage() != null ? portResponse.getMessage() : ""));
+        }
+    };
+
 }

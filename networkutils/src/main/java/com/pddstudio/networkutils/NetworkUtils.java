@@ -33,6 +33,10 @@ public class NetworkUtils {
         return new PingService(processCallback);
     }
 
+    public PortService getPortService(ProcessCallback processCallback) {
+        return new PortService(processCallback);
+    }
+
     public boolean checkDeviceUsesAdBlock() {
         return AdBlockUtils.isAdBlockActive();
     }

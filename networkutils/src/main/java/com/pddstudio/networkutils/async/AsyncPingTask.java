@@ -46,12 +46,13 @@ public class AsyncPingTask extends AsyncTask<Void, String, Void> {
                     .start();
 
             InputStream inputStream = process.getInputStream();
-            OutputStream outputStream = process.getOutputStream();
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while((line = bufferedReader.readLine()) != null) {
-                publishProgress(line);
+                if(!isCancelled()) {
+                    publishProgress(line);
+                } else break;
             }
 
         } catch (IOException io) {
