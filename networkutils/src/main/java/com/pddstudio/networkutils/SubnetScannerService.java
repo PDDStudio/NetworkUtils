@@ -66,12 +66,13 @@ public class SubnetScannerService extends AbstractService {
 
                 InetAddress inetAddress;
 
-                for(int i = 1; i < 256; i++) {
+                for(int i = 0; i < 256; i++) {
                     if(!isCancelled()) {
                         ScanResult scanResult = new ScanResult();
                         inetAddress = InetAddress.getByName(subNet + "." + String.valueOf(i));
-                        scanResult.setInetAddress(inetAddress);
                         scanResult.setIpAddress(inetAddress.getHostAddress());
+                        scanResult.setHostName(inetAddress.getHostName());
+                        scanResult.setCanoncialHostName(inetAddress.getCanonicalHostName());
                         if(inetAddress.isReachable(timeout)) {
                             scanResult.setReachable(true);
                         } else {

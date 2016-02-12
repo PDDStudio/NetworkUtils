@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d("MainActivity", "Current Device IP: " + NetworkUtils.get(MainActivity.this).getCurrentIpAddress());
                 NetworkUtils.get(MainActivity.this).getConnectionInformation(conInfoCallback);
             }
         }).start();
@@ -71,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(DiscoveryType.SSH_SERVER, new SimpleDiscoveryListener() {
+                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(SERVICE_TYPE_DISPLAY, new SimpleDiscoveryListener() {
                     @Override
                     public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
                         Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
                     }
                 });
                 Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());
-                if(pingService == null) {
+                /*if(pingService == null) {
 
                     pingService = NetworkUtils.get(MainActivity.this).getPingService(new ProcessCallback() {
                         @Override
@@ -111,6 +112,28 @@ public class MainActivity extends AppCompatActivity {
                // NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
 
                 NetworkUtils.get(MainActivity.this).getSubNetScannerService(subnetScannerCallback).setTimeout(2000).startScan();
+                NetworkUtils.get(MainActivity.this).getPortService(new ProcessCallback() {
+                    @Override
+                    public void onProcessStarted(@NonNull String serviceName) {
+
+                    }
+
+                    @Override
+                    public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+
+                    }
+
+                    @Override
+                    public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+
+                    }
+
+                    @Override
+                    public void onProcessUpdate(@NonNull Object processUpdate) {
+                        PortResponse portResponse = (PortResponse) processUpdate;
+                        if(portResponse.isPortOpen()) Log.d("MainActivity", "Open Port detected: " + portResponse.getIpAddress());
+                    }
+                }).setTargetAddress(NetworkUtils.get(MainActivity.this).getCurrentIpAddress()).addPortRange(1, 9909).scan();
 
             }
         });
@@ -182,7 +205,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onProcessUpdate(@NonNull Object processUpdate) {
-            if(((ScanResult) processUpdate).isReachable()) Toast.makeText(MainActivity.this, "onProcessUpdate() : Target Address: " + ((ScanResult) processUpdate).getIpAddress(), Toast.LENGTH_SHORT).show();
+            if(((ScanResult) processUpdate).isReachable()) {
+                Toast.makeText(MainActivity.this, "onProcessUpdate() : Target Address: " + ((ScanResult) processUpdate).getIpAddress(), Toast.LENGTH_SHORT).show();
+                ScanResult scanResult = (ScanResult) processUpdate;
+                Log.d("MainActivity", "ADDRESS: " + scanResult.getIpAddress() + " NAME: " + scanResult.getHostName() + " CANONCIAL NAME: " + scanResult.getCanoncialHostName());
+            }
         }
     };
 

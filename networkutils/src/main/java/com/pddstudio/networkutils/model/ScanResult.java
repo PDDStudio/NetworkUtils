@@ -9,19 +9,12 @@ import java.net.InetAddress;
  */
 public class ScanResult {
 
-    private InetAddress inetAddress;
     private String ipAddress;
+    private String hostName;
+    private String canonicalHostName;
     private boolean reachable;
 
     public ScanResult() {}
-
-    public InetAddress getInetAddress() {
-        return inetAddress;
-    }
-
-    public void setInetAddress(InetAddress inetAddress) {
-        this.inetAddress = inetAddress;
-    }
 
     public String getIpAddress() {
         return ipAddress;
@@ -37,5 +30,21 @@ public class ScanResult {
 
     public void setReachable(boolean reachable) {
         this.reachable = reachable;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getCanoncialHostName() {
+        return canonicalHostName;
+    }
+
+    public void setCanoncialHostName(String canoncialHostName) {
+        this.canonicalHostName = canoncialHostName;
     }
 }
