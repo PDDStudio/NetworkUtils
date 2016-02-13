@@ -13,7 +13,8 @@ public enum DiscoveryType {
     VNC_REMOTE("_rfb._tcp."),
     SSH_SERVER("_ssh._tcp."),
     REMOTE_DISK_MANAGEMENT("_udisks-ssh._tcp."),
-    RTSP("_rtsp._tcp.");
+    RTSP("_rtsp._tcp."),
+    GOOGLE_CAST("_googlecast._tcp");
 
     private final String PROTOCOL_TYPE;
 
