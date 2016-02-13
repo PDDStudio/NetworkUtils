@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(SERVICE_TYPE_DISPLAY, new SimpleDiscoveryListener() {
+                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(DiscoveryType.WORKSTATION, new SimpleDiscoveryListener() {
                     @Override
                     public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
                         Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
