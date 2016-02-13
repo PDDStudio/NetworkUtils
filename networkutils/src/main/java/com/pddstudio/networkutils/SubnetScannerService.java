@@ -99,4 +99,35 @@ public class SubnetScannerService extends AbstractService {
 
     }
 
+    //TODO: rewrite SubNetScanner to scan the network faster
+    private class SubNetScannerThread extends Thread {
+
+        final int port;
+
+        SubNetScannerThread(int port) {
+            this.port = port;
+        }
+
+        @Override
+        public void run() {
+            try {
+
+                ScanResult scanResult = new ScanResult();
+                InetAddress inetAddress = InetAddress.getByName(subNet + "." + String.valueOf(port));
+                scanResult.setIpAddress(inetAddress.getHostAddress());
+                scanResult.setHostName(inetAddress.getHostName());
+                scanResult.setCanoncialHostName(inetAddress.getCanonicalHostName());
+                if(inetAddress.isReachable(timeout)) {
+                    scanResult.setReachable(true);
+                } else {
+                    scanResult.setReachable(false);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }
