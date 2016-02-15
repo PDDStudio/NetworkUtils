@@ -2,11 +2,9 @@ package com.pddstudio.networkingdemo;
 
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
-import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,12 +18,11 @@ import com.pddstudio.networkutils.PingService;
 import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
-import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.model.ConnectionInformation;
-import com.pddstudio.networkutils.model.PingResponse;
 import com.pddstudio.networkutils.model.PortResponse;
 import com.pddstudio.networkutils.model.ScanResult;
-import com.pddstudio.networkutils.utils.ArpUtils;
+
+import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
 
