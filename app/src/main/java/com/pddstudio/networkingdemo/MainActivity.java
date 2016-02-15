@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.PingService;
+import com.pddstudio.networkutils.SubnetScannerService;
 import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
@@ -37,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String SERVICE_TYPE_RTSP = "_rtsp._tcp";
 
     PingService pingService;
+    SubnetScannerService subnetScannerService;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,17 +67,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+        subnetScannerService = NetworkUtils.get(MainActivity.this).getSubNetScannerService(subnetScannerCallback).setTimeout(2000);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(DiscoveryType.GOOGLE_CAST, new SimpleDiscoveryListener() {
+                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(DiscoveryType.WORKSTATION, new SimpleDiscoveryListener() {
                     @Override
                     public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
                         Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
                     }
                 });
-                Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());
+                //Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());
                 /*if(pingService == null) {
 
                     pingService = NetworkUtils.get(MainActivity.this).getPingService(new ProcessCallback() {
@@ -108,7 +112,14 @@ public class MainActivity extends AppCompatActivity {
 
                // NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
 
-                NetworkUtils.get(MainActivity.this).getSubNetScannerService(subnetScannerCallback).setTimeout(2000).startScan();
+                if(subnetScannerService.isMultiThreadScanning()) {
+                    Log.d("MainActivity", "isMultiThreadScanning() : interrupting now!");
+                    subnetScannerService.interruptMultiThreadScanning();
+                } else {
+                    Log.d("MainActivity", "isMultiThreadScanning() : false -> starting now!");
+                    subnetScannerService.startMultiThreadScanning();
+                }
+
                 NetworkUtils.get(MainActivity.this).getPortService(new ProcessCallback() {
                     @Override
                     public void onProcessStarted(@NonNull String serviceName) {
@@ -184,20 +195,23 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private ProcessCallback subnetScannerCallback = new ProcessCallback() {
+    private final ProcessCallback subnetScannerCallback = new ProcessCallback() {
         @Override
         public void onProcessStarted(@NonNull String serviceName) {
             Toast.makeText(MainActivity.this, "onProcessStarted()", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "SubnetScannerCallback : onProcessStarted()");
         }
 
         @Override
         public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
             Toast.makeText(MainActivity.this, "onProcessFailed()", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "SubnetScannerCallback : onProcessFailed()");
         }
 
         @Override
         public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
             Toast.makeText(MainActivity.this, "onProcessFinished()", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "SubnetScannerCallback : onProcessFinished() [" + serviceName + "::" + endMessage + "]");
         }
 
         @Override

@@ -1,12 +1,15 @@
 package com.pddstudio.networkutils;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.pddstudio.networkutils.abstracts.AbstractService;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ScanResult;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * This Class was created by Patrick J
@@ -14,6 +17,11 @@ import java.net.InetAddress;
  * have a look at the README.md
  */
 public class SubnetScannerService extends AbstractService {
+
+    private static final boolean PRINT_LOG_MESSAGES = true;
+
+    private static boolean interruptMultiThread = false;
+    private static boolean mThreadStarted = false;
 
     private final ProcessCallback processCallback;
     private final String subNet;
@@ -42,6 +50,36 @@ public class SubnetScannerService extends AbstractService {
     public void stopScan() {
         if(networkScanner != null && !networkScanner.isCancelled()) {
             networkScanner.cancel(true);
+        }
+    }
+
+    public boolean isScanning()  {
+        return networkScanner != null && !networkScanner.isCancelled();
+    }
+
+    public void startMultiThreadScanning() {
+        mThreadStarted = true;
+        processCallback.onProcessStarted(getServiceName());
+        for(int i = 0; i < 129; i++) {
+            SubNetScannerThread subNetScannerThread = new SubNetScannerThread(subNet + "." + String.valueOf(i));
+            subNetScannerThread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
+
+    public void interruptMultiThreadScanning() {
+        interruptMultiThread = true;
+        mThreadStarted = false;
+        processCallback.onProcessFinished(getServiceName(), "Interrupting Multi Thread Scanning due to method call: interruptMultiThreadScanning()");
+    }
+
+    public boolean isMultiThreadScanning() {
+        return !interruptMultiThread && mThreadStarted;
+    }
+
+    private void continueMultiThreadScanning() {
+        for (int i = 129; i < 256; i++) {
+            SubNetScannerThread subNetScannerThread = new SubNetScannerThread(subNet + "." + String.valueOf(i));
+            subNetScannerThread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -100,31 +138,56 @@ public class SubnetScannerService extends AbstractService {
     }
 
     //TODO: rewrite SubNetScanner to scan the network faster
-    private class SubNetScannerThread extends Thread {
+    private class SubNetScannerThread extends AsyncTask<Void, Void, ScanResult> {
 
-        final int port;
+        private InetAddress inetAddress;
 
-        SubNetScannerThread(int port) {
-            this.port = port;
+        SubNetScannerThread(String address) {
+            try {
+                this.inetAddress = InetAddress.getByName(address);
+            } catch (UnknownHostException uk) {
+                uk.printStackTrace();
+                cancel(true);
+            }
         }
 
         @Override
-        public void run() {
-            try {
+        public void onPreExecute() {
+            if(PRINT_LOG_MESSAGES) Log.d("SubNetScannerThread", "Created Thread for " + inetAddress.toString());
+        }
 
+        @Override
+        protected ScanResult doInBackground(Void... params) {
+            if(PRINT_LOG_MESSAGES) Log.d("SubNetScannerThread", "Executing job for " + inetAddress.getHostName());
+            if(!isCancelled() && !interruptMultiThread) {
                 ScanResult scanResult = new ScanResult();
-                InetAddress inetAddress = InetAddress.getByName(subNet + "." + String.valueOf(port));
                 scanResult.setIpAddress(inetAddress.getHostAddress());
                 scanResult.setHostName(inetAddress.getHostName());
                 scanResult.setCanoncialHostName(inetAddress.getCanonicalHostName());
-                if(inetAddress.isReachable(timeout)) {
-                    scanResult.setReachable(true);
-                } else {
+                try {
+                    if(inetAddress.isReachable(timeout)) {
+                        scanResult.setReachable(true);
+                    } else {
+                        scanResult.setReachable(false);
+                    }
+                } catch (IOException io) {
+                    io.printStackTrace();
                     scanResult.setReachable(false);
                 }
+                return scanResult;
+            }
+            return null;
+        }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+        @Override
+        public void onPostExecute(ScanResult scanResult) {
+            if(interruptMultiThread) return;
+            if(PRINT_LOG_MESSAGES) Log.d("SubNetScannerThread", "Finished job for " + inetAddress.toString());
+            processCallback.onProcessUpdate(scanResult);
+            String ip = inetAddress.toString().substring(inetAddress.toString().lastIndexOf("."));
+            if(ip.contains("128")) {
+                if(PRINT_LOG_MESSAGES) Log.d("SubNetScannerThread", "FOUND LAST THREAD ITEM (128) - CONTINUING WITH THE NEXT STACK");
+                continueMultiThreadScanning();
             }
         }
 
