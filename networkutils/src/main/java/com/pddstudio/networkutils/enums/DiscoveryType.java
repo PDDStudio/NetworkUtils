@@ -30,10 +30,10 @@ public enum DiscoveryType {
     DIGITAL_PHOTO_ACCESS_PROTOCOL("_dpap._tcp."),
     I_CHAT_INSTANT_MESSAGING_PROTOCOL("_presence._tcp."),
     IMAGE_CAPTURE_SHARING("_ica-networking._tcp."),
-    AIRPORT_BASE_STATION("_airport._tcp"),
-    XSERVE_RAID("_xserveraid._tcp"),
+    AIRPORT_BASE_STATION("_airport._tcp."),
+    XSERVE_RAID("_xserveraid._tcp."),
     DISTRIBUTED_COMPILER("_distcc._tcp."),
-    APPLE_PASSWORD_SERVER("_apple-sasl._tcp"),
+    APPLE_PASSWORD_SERVER("_apple-sasl._tcp."),
     REMOTE_AUDIO_OUTPUT_PROTOCOL("_raop._tcp.");
 
     private final String PROTOCOL_TYPE;
