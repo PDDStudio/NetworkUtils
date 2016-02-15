@@ -34,6 +34,7 @@ To use this library, all you have to do is to include it into your project's `bu
 dependencies {
         //other dependencies here...
         compile 'com.pddstudio:networkutils:1.0.0'
+		//make sure you're using the latest version of NetworkUtils
     }
 ```
 
