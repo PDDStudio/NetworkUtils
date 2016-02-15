@@ -118,7 +118,7 @@ In case you want to get a new instance of `NetworkUtils` everytime you want to o
     }
 ```
 
-That's it! Now you can continue with [synchronous]() or [asynchronous]() requests.
+That's it! Now you can continue with [synchronous](https://github.com/PDDStudio/NetworkUtils#synchronous-operations) or [asynchronous](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations) requests.
 
 ##Synchronous Operations
 Synchronous Operations are supposed to be called only on already existing background jobs, you won't be able to call a synchronous request in your application's UiThread.
