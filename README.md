@@ -21,7 +21,7 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 #### Repository
-NetworkUtils is a Free and OpenSource Android Library which can be found on [GitHub]().
+NetworkUtils is a Free and OpenSource Android Library which can be found on [GitHub](https://github.com/PDDStudio/NetworkUtils).
 
 The binary packages of this library are published on [Maven Central]() and can be included into your project by only adding the library as dependency to your project.
 
