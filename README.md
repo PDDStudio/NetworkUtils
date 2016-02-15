@@ -5,15 +5,15 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 ---
 
 ##Table of Contents
-1. Gradle Dependency
-	1. Repository
-	2. Dependency
-2. Library Features Overview
-	1. General Overview
-	2. NetworkUtils Javadoc
-3. Installation
-4. Synchroneous Calls
-5. Asynchroneous Calls
+1. [Gradle Dependency](https://github.com/PDDStudio/NetworkUtils#gradle-dependency)
+	1. [Repository](https://github.com/PDDStudio/NetworkUtils#repository)
+	2. [Dependency](https://github.com/PDDStudio/NetworkUtils#dependency)
+2. [Library Features Overview](https://github.com/PDDStudio/NetworkUtils#library-features-overview)
+	1. [General Overview](https://github.com/PDDStudio/NetworkUtils#general-overview)
+	2. [NetworkUtils Javadoc](https://github.com/PDDStudio/NetworkUtils#networkutils-javadoc)
+3. [Installation](https://github.com/PDDStudio/NetworkUtils#installation)
+4. [Synchroneous Calls](https://github.com/PDDStudio/NetworkUtils#synchronous-operations)
+5. [Asynchroneous Calls](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations)
 
 ---
 
