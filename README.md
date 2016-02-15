@@ -14,3 +14,14 @@ An Android Library for common network operations with a fluent and easy to use A
 
 ---
 
+## Gradle Dependency
+todo...
+
+#### Repository
+todo....
+
+#### Dependency
+todo....
+
+## Library Features Overview
+todo ...
