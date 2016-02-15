@@ -41,5 +41,10 @@ dependencies {
 ## Library Features Overview
 Down below you can find a list of all current features the library comes with.
 
-**Note:** All features in this library can either be requested *synchroneous* or *asynchroneous*
+**Note:** All features in this library can either be requested *synchronous* or *asynchronous*.
+
+- Feature Once
+- Feature Two
+- Feature Three
+
 
