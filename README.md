@@ -34,9 +34,12 @@ To use this library, all you have to do is to include it into your project's `bu
 dependencies {
         //other dependencies here...
         compile 'com.pddstudio:networkutils:1.0.0'
-		//make sure you're using the latest version of NetworkUtils
-    }
+		//make sure you're always using the latest version of NetworkUtils
+}
 ```
 
 ## Library Features Overview
-todo ...
+Down below you can find a list of all current features the library comes with.
+
+**Note:** All features in this library can either be requested *synchroneous* or *asynchroneous*
+
