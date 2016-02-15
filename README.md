@@ -41,11 +41,66 @@ dependencies {
 ## Library Features Overview
 Down below you can find a list of all current features the library comes with.
 
-**Note:** All features in this library can either be requested *synchronous* or *asynchronous*.
+**Note:** *Almost* all features in this library can either be requested *synchronous* or *asynchronous*.
 
-- Feature Once
-Some Notes here...
-- Feature Two
-- Feature Three
+#### General Overview
 
+- Simple Network Utilities (like getting the current IP-Address, and more...)
+- ARP (Address Resolution Protocol) resolver and IP- / Mac-Address Mapper
+- AdBlock detection (based on the phone's `host` file)
+- Ping Utilities for checking local/remote address availability using Android's native ping binary
+- Port Scanning Utilities for local/remote address scanning and open port detection (yet, supports TCP connections only)
+- Discovery Utilities for DNS based service discovery on a local network over Multicast DNS (Avahi, Bonjour, ZeroConf)
 
+#### NetworkUtils Javadoc
+
+You can find the latest version of NetworkUtil's Javadoc [here]()
+
+## Installation
+After adding the library as dependency to your project you can start using NetworkUtils in two ways:
+
+**1. Creating a Singleton instance**
+Creating a Singleton instance allows you to only instantiate the Library once and access it's created instance from everywhere in your code.
+
+To create the Singleton instance all you have to do is to call it's `initSingleton(Context context)` method before retrieving an instance. Therefore it's recommended to instantiate the Library in your Application's `onCreate(Bundle savedInstanceState)` method.
+
+```java
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //other stuff in your onCreate method...
+
+        NetworkUtils.initSingleton(this);
+
+```
+
+Now you can retrieve the `NetworkUtils` Singleton from everywhere in your application's code by calling:
+
+```java
+    private void someNetworkMethod() {
+        //retrieve the NetworkUtils Singleton
+        NetworkUtils networkUtils = NetworkUtils.get();
+        //now you can call any method in the library as usual
+        Log.d("NetworkUtils", "Current IP-Address: " + networkUtils.getCurrentIpAddress());
+    }
+```
+
+**2. Always retrieve a new instance**
+In case you want to get a new instance of `NetworkUtils` everytime you want to operate with the library you can retrieve it by calling it's `get()` method:
+```java
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //other stuff in your onCreate method...
+
+        NetworkUtils networkUtils = NetworkUtils.get(this, true);
+    }
+```
+
+That's it! Now you can continue with [synchronous]() or [asynchronous]() requests.
