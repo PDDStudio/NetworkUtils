@@ -21,7 +21,7 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 ## Gradle Dependency
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star)](https://github.com/PDDStudio/NetworkUtils)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.pddstudio/networkutils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.pddstudio/networkutils)
 
 #### Repository
 NetworkUtils is a Free and OpenSource Android Library which can be found on [GitHub](https://github.com/PDDStudio/NetworkUtils).
