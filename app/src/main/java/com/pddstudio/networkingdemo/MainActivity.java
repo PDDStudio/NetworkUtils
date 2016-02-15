@@ -62,18 +62,18 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("MainActivity", "Current Device IP: " + NetworkUtils.get(MainActivity.this).getCurrentIpAddress());
-                NetworkUtils.get(MainActivity.this).getConnectionInformation(conInfoCallback);
+                Log.d("MainActivity", "Current Device IP: " + NetworkUtils.get(MainActivity.this, false).getCurrentIpAddress());
+                NetworkUtils.get(MainActivity.this, false).getConnectionInformation(conInfoCallback);
             }
         }).start();
 
-        subnetScannerService = NetworkUtils.get(MainActivity.this).getSubNetScannerService(subnetScannerCallback).setTimeout(2000);
+        subnetScannerService = NetworkUtils.get(MainActivity.this, false).getSubNetScannerService(subnetScannerCallback).setTimeout(2000);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NetworkUtils.get(MainActivity.this).getDiscoveryService().startDiscovery(DiscoveryType.WORKSTATION, new SimpleDiscoveryListener() {
+                NetworkUtils.get(MainActivity.this, false).getDiscoveryService().startDiscovery(DiscoveryType.WORKSTATION, new SimpleDiscoveryListener() {
                     @Override
                     public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
                         Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     subnetScannerService.startMultiThreadScanning();
                 }
 
-                NetworkUtils.get(MainActivity.this).getPortService(new ProcessCallback() {
+                NetworkUtils.get(MainActivity.this, false).getPortService(new ProcessCallback() {
                     @Override
                     public void onProcessStarted(@NonNull String serviceName) {
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         PortResponse portResponse = (PortResponse) processUpdate;
                         if(portResponse.isPortOpen()) Log.d("MainActivity", "Open Port detected: " + portResponse.getIpAddress());
                     }
-                }).setTargetAddress(NetworkUtils.get(MainActivity.this).getCurrentIpAddress()).addPortRange(1, 9909).scan();
+                }).setTargetAddress(NetworkUtils.get(MainActivity.this, false).getCurrentIpAddress()).addPortRange(1, 9909).scan();
 
             }
         });

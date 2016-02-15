@@ -43,6 +43,7 @@ public class PortService extends AbstractService {
     }
 
     public PortService addPortRange(int from, int until) {
+        if(until > 65535) until = 65535;
         if(from < until) {
             for(; from <= until; from++) {
                 this.portList.add(from);
