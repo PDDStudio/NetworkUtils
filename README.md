@@ -57,7 +57,20 @@ Down below you can find a list of all current features the library comes with.
 You can find the latest version of NetworkUtil's Javadoc [here]()
 
 ## Installation
-After adding the library as dependency to your project you can start using NetworkUtils in two ways:
+
+**Adding Permissions to your Application**
+
+After adding the library as dependency to your project, continue by preparing your application and adding the required permissions to your `AndroidManifest.xml`: 
+
+```xml
+    <!-- This permission is required to perform network requests -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- These permissions are required when using Utilities like retrieving the current IP-Address, ... --> 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+```
+
+Now you can start using NetworkUtils in two ways:
 
 **1. Creating a Singleton instance**
 Creating a Singleton instance allows you to only instantiate the Library once and access it's created instance from everywhere in your code.
@@ -74,7 +87,7 @@ To create the Singleton instance all you have to do is to call it's `initSinglet
         //other stuff in your onCreate method...
 
         NetworkUtils.initSingleton(this);
-
+    }
 ```
 
 Now you can retrieve the `NetworkUtils` Singleton from everywhere in your application's code by calling:
@@ -89,7 +102,7 @@ Now you can retrieve the `NetworkUtils` Singleton from everywhere in your applic
 ```
 
 **2. Always retrieve a new instance**
-In case you want to get a new instance of `NetworkUtils` everytime you want to operate with the library you can retrieve it by calling it's `get()` method:
+In case you want to get a new instance of `NetworkUtils` everytime you want to operate with the library you can retrieve it by calling it's `get(Context context, Boolean flag)` method:
 ```java
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -104,3 +117,13 @@ In case you want to get a new instance of `NetworkUtils` everytime you want to o
 ```
 
 That's it! Now you can continue with [synchronous]() or [asynchronous]() requests.
+
+##Synchronous Operations
+Synchronous Operations are supposed to be called only on already existing background jobs, you won't be able to call a synchronous request in your application's UiThread.
+
+*WIP*
+
+##Asynchronous Operations
+Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide.
+
+*WIP*
