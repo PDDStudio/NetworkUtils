@@ -66,6 +66,7 @@ public class AsyncPortTask extends AsyncTask<Void, PortResponse, Void> {
 
         } catch (Exception e) {
             e.printStackTrace();
+            cancel(true);
         }
 
         return null;
@@ -73,7 +74,7 @@ public class AsyncPortTask extends AsyncTask<Void, PortResponse, Void> {
 
     @Override
     protected void onCancelled() {
-        processCallback.onProcessFailed(portService.getServiceName(), null, -1);
+        processCallback.onProcessFailed(portService.getServiceName(), "Asynchronous Operation aborted!", -1);
     }
 
     @Override

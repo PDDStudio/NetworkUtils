@@ -24,6 +24,7 @@ public class PortService extends AbstractService {
     protected PortService(ProcessCallback processCallback) {
         super(PortService.class);
         this.processCallback = processCallback;
+        this.targetAddress = "127.0.0.1";
         this.portList = new LinkedList<>();
     }
 
@@ -63,7 +64,7 @@ public class PortService extends AbstractService {
 
     @Override
     public Object getResponseType() {
-        return null;
+        return new PortResponse();
     }
 
 }
