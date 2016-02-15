@@ -26,8 +26,17 @@ public class NetworkUtils {
         this.context = context;
     }
 
-    public static NetworkUtils get(Context context) {
+    public static void initSingleton(Context context) {
         if(networkUtils == null) networkUtils = new NetworkUtils(context);
+    }
+
+    public static NetworkUtils get(Context context, boolean overwrite) {
+        if(networkUtils != null && overwrite) networkUtils = new NetworkUtils(context);
+        else if(networkUtils == null) networkUtils = new NetworkUtils(context);
+        return networkUtils;
+    }
+
+    public static NetworkUtils get() {
         return networkUtils;
     }
 
