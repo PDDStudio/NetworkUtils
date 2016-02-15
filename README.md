@@ -28,7 +28,14 @@ The binary packages of this library are published on [Maven Central]() and can b
 *Please make sure you're always using the latest version of NetworkUtils*
 
 #### Dependency
-todo....
+To use this library, all you have to do is to include it into your project's `build.gradle` file:
+
+```gradle
+dependencies {
+        //other dependencies here...
+        compile 'com.pddstudio:networkutils:1.0.0'
+    }
+```
 
 ## Library Features Overview
 todo ...
