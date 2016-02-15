@@ -73,6 +73,7 @@ After adding the library as dependency to your project, continue by preparing yo
 Now you can start using NetworkUtils in two ways:
 
 **1. Creating a Singleton instance**
+
 Creating a Singleton instance allows you to only instantiate the Library once and access it's created instance from everywhere in your code.
 
 To create the Singleton instance all you have to do is to call it's `initSingleton(Context context)` method before retrieving an instance. Therefore it's recommended to instantiate the Library in your Application's `onCreate(Bundle savedInstanceState)` method.
@@ -102,6 +103,7 @@ Now you can retrieve the `NetworkUtils` Singleton from everywhere in your applic
 ```
 
 **2. Always retrieve a new instance**
+
 In case you want to get a new instance of `NetworkUtils` everytime you want to operate with the library you can retrieve it by calling it's `get(Context context, Boolean flag)` method:
 ```java
     @Override
