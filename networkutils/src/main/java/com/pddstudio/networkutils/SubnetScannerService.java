@@ -18,7 +18,7 @@ import java.net.UnknownHostException;
  */
 public class SubnetScannerService extends AbstractService {
 
-    private static final boolean PRINT_LOG_MESSAGES = true;
+    private static final boolean PRINT_LOG_MESSAGES = false;
 
     private static boolean interruptMultiThread = false;
     private static boolean mThreadStarted = false;
