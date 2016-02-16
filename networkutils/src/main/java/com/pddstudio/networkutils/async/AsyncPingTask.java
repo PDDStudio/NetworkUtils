@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 /**
  * An asynchronous task to retrieve execute Ping commands using Android's native Ping binary.

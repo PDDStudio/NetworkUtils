@@ -1,7 +1,5 @@
 package com.pddstudio.networkutils.model;
 
-import java.net.InetAddress;
-
 /**
  * The result type for {@link com.pddstudio.networkutils.interfaces.ProcessCallback} calls when using {@link com.pddstudio.networkutils.SubnetScannerService}
  */

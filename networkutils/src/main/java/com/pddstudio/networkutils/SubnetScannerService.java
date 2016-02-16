@@ -12,9 +12,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * A Service for scanning for other devices in the current Subnet.
  */
 public class SubnetScannerService extends AbstractService {
 
@@ -42,21 +40,43 @@ public class SubnetScannerService extends AbstractService {
         return this;
     }
 
+    /**
+     * Starts scanning the Subnet for other devices (single thread, means only one IP-Address at the same time).
+     * For scanning multiple IP-Addresses at the same time use {@link #startMultiThreadScanning()}.
+     *
+     * @see #startMultiThreadScanning()
+     */
     public void startScan() {
         networkScanner = new NetworkScanner();
         networkScanner.execute();
     }
 
+    /**
+     * Stops scanning the Subnet for other devices.
+     */
     public void stopScan() {
         if(networkScanner != null && !networkScanner.isCancelled()) {
             networkScanner.cancel(true);
         }
     }
 
+    /**
+     * Checks whether the service is currently scanning for other devices or not.
+     * <b>Note: Single-Thread scanning only!</b>
+     * @return true if service is running, false if not.
+     *
+     * @see #isMultiThreadScanning()
+     */
     public boolean isScanning()  {
         return networkScanner != null && !networkScanner.isCancelled();
     }
 
+    /**
+     * Starts scanning the Subnet for other devices (multi thread, means 128 IP-Addresses at the same time, repeated twice).
+     * For scanning with single IP-Address checks, use {@link #startScan()}
+     *
+     * @see #startScan()
+     */
     public void startMultiThreadScanning() {
         mThreadStarted = true;
         processCallback.onProcessStarted(getServiceName());
@@ -66,12 +86,24 @@ public class SubnetScannerService extends AbstractService {
         }
     }
 
+    /**
+     * Interrupts the scanning process for multi thread executions.
+     * <b>Note: Multi-Thread scanning only!</b>
+     */
     public void interruptMultiThreadScanning() {
         interruptMultiThread = true;
         mThreadStarted = false;
         processCallback.onProcessFinished(getServiceName(), "Interrupting Multi Thread Scanning due to method call: interruptMultiThreadScanning()");
     }
 
+    /**
+     * Checks whether the service is currently scanning for devices or not.
+     * <b>Note: Multi-Thread scanning only!</b>
+     *
+     * @return true if the service is running, false if not.
+     *
+     * @see #isScanning()
+     */
     public boolean isMultiThreadScanning() {
         return !interruptMultiThread && mThreadStarted;
     }
@@ -83,6 +115,11 @@ public class SubnetScannerService extends AbstractService {
         }
     }
 
+    /**
+     * The return type of this service.
+     * Objects retrieved via {@link ProcessCallback#onProcessUpdate(Object)} must be casted to {@link ScanResult} in order to be able to work with the response.
+     * @return {@link ScanResult}
+     */
     @Override
     public Object getResponseType() {
         return new ScanResult();

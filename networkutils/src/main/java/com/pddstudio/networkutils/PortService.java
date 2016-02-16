@@ -5,7 +5,6 @@ import com.pddstudio.networkutils.async.AsyncPortTask;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.PortResponse;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
