@@ -1,9 +1,7 @@
 package com.pddstudio.networkutils.abstracts;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * The abstract class all Services extend from.
  */
 public abstract class AbstractService {
 
@@ -13,11 +11,19 @@ public abstract class AbstractService {
         this.className = className;
     }
 
+    /**
+     * Returns the Service's Name
+     * @return The Service's Name
+     */
     public String getServiceName() {
         if(className instanceof Class) return ((Class) className).getSimpleName();
         return className.getClass().getSimpleName();
     }
 
+    /**
+     * Returns the Service's Callback Object-Type, this might be used to cast the incoming Object the correct way.
+     * @return The Service's Callback Object-Type, this might be used to cast the incoming Object the correct way.
+     */
     public abstract Object getResponseType();
 
 }

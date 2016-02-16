@@ -13,9 +13,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * An asynchronous task to retrieve execute Ping commands using Android's native Ping binary.
+ * The results will be given to the provided {@link ProcessCallback} interface.
  */
 public class AsyncPingTask extends AsyncTask<Void, String, Void> {
 

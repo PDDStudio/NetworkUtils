@@ -3,9 +3,7 @@ package com.pddstudio.networkutils.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * This class holds several information about the current user's connection.
  */
 public class ConnectionInformation {
 
@@ -24,60 +22,103 @@ public class ConnectionInformation {
     private String timezone;
     private String zip;
 
+    /**
+     * Empty default constructor.
+     */
     public ConnectionInformation() {}
 
+    /**
+     * Returns the Aerospace Standard of the current connection's provider.
+     * @return The Aerospace Standard of the current connection's provider.
+     */
     public String getAs() {
         return as;
     }
 
+    /**
+     * Returns the current City, based on the connection's provider location.
+     * @return The current City, based on the connection's provider location.
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Returns the current Country.
+     * @return The current Country.
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * Returns the current Country's country code.
+     * @return The current Country's country code.
+     */
     public String getCountryCode() {
         return countryCode;
     }
 
+    /**
+     * Returns the current ISP.
+     * @returnn The current ISP.
+     */
     public String getIsp() {
         return isp;
     }
 
+    /**
+     * Returns the current Latitude, based on the IP-Address/ISP resolve location.
+     * @return The current Latitude, based on the IP-Address/ISP resolve location.
+     */
     public String getLatitude() {
         return latitude;
     }
 
+    /**
+     * Returns the current Longitude, based on the IP-Address/ISP resolve location.
+     * @return The current Longitude, based on the IP-Address/ISP resolve location.
+     */
     public String getLongitude() {
         return longitude;
     }
 
+    /**
+     * Returns the name of the current ISP.
+     * @return the name of the current ISP.
+     */
     public String getOrganization() {
         return organization;
     }
 
-    public String getQuery() {
-        return query;
-    }
-
+    /**
+     * Returns the name of the region based on the IP-Address/ISP resolve location (Short form).
+     * @return The name of the region based on the IP-Address/ISP resolve location (Short form).
+     */
     public String getRegion() {
         return region;
     }
 
+    /**
+     * Returns the name of the region based on the IP-Address/ISP resolve location (Long form).
+     * @return The name of the region based on the IP-Address/ISP resolve location (Long form).
+     */
     public String getRegionName() {
         return regionName;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
+    /**
+     * Returns the current timezone based on the resolved location.
+     * @return The current timezone based on the resolved location.
+     */
     public String getTimezone() {
         return timezone;
     }
 
+    /**
+     * Returns the zip code based on the resolved location.
+     * @return The zip code based on the resolved location.
+     */
     public String getZip() {
         return zip;
     }

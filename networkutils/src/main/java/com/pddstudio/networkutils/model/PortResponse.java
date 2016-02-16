@@ -1,9 +1,7 @@
 package com.pddstudio.networkutils.model;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * The result type for {@link com.pddstudio.networkutils.interfaces.ProcessCallback} calls when using {@link com.pddstudio.networkutils.PortService}
  */
 public class PortResponse {
 
@@ -14,6 +12,10 @@ public class PortResponse {
 
     public PortResponse() {}
 
+    /**
+     * Returns the IP-Address of the target.
+     * @return The IP-Address of the target.
+     */
     public String getIpAddress() {
         return ipAddress;
     }
@@ -22,6 +24,10 @@ public class PortResponse {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     * Returns the Port where the {@link com.pddstudio.networkutils.PortService} was trying to connect to.
+     * @return The Port where the {@link com.pddstudio.networkutils.PortService} was trying to connect to.
+     */
     public int getPort() {
         return port;
     }
@@ -30,6 +36,10 @@ public class PortResponse {
         this.port = port;
     }
 
+    /**
+     * Returns an additional message (usually this is only not null in case an error occurred).
+     * @return An additional message.
+     */
     public String getMessage() {
         return message;
     }
@@ -38,6 +48,10 @@ public class PortResponse {
         this.message = message;
     }
 
+    /**
+     * Returns whether the target port is opened or not.
+     * @return true if port is open, false if not.
+     */
     public boolean isPortOpen() {
         return portOpen;
     }

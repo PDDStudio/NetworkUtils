@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * Utility class for checking the device's host file an lookup Ad-blocker entries.
  */
 public final class AdBlockUtils {
 
+    /**
+     * Returns whether the device has Ad blocking entries in it's host file or not.
+     * @return true if Ad blocking entries where detected, false if not.
+     */
     public static Boolean isAdBlockActive() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("/etc/hosts")));

@@ -1,9 +1,8 @@
 package com.pddstudio.networkutils.model;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * This class represents a single entry in the device's ARP-List.
+ * It maps IP-Addresses and their Mac-Addresses.
  */
 public class ArpInfo {
 
@@ -12,6 +11,10 @@ public class ArpInfo {
 
     public ArpInfo() {}
 
+    /**
+     * Returns the entry's IP-Address
+     * @return The entry's IP-Address
+     */
     public String getIpAddress() {
         return ipAddress;
     }
@@ -20,6 +23,10 @@ public class ArpInfo {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     * Returns the entry's Mac-Address
+     * @return The entry's Mac-Address
+     */
     public String getMacAddress() {
         return macAddress;
     }

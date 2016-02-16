@@ -12,9 +12,8 @@ import java.net.Socket;
 import java.util.List;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * An asynchronous task to retrieve {@link PortResponse} instances.
+ * The results will be given to the provided {@link ProcessCallback} interface.
  */
 public class AsyncPortTask extends AsyncTask<Void, PortResponse, Void> {
 

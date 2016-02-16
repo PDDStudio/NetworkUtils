@@ -11,9 +11,7 @@ import com.pddstudio.networkutils.interfaces.DiscoveryCallback;
 
 
 /**
- * This Class was created by Patrick J
- * on 11.02.16. For more Details and Licensing
- * have a look at the README.md
+ * A Service for looking up several discovery types (Avahi/Bonjour/Zeroconf) on a network.
  */
 public class DiscoveryService implements NsdManager.DiscoveryListener {
 
@@ -26,16 +24,29 @@ public class DiscoveryService implements NsdManager.DiscoveryListener {
         this.nsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
     }
 
+    /**
+     * Start looking up for the provided discovery type. The results will be sent to the provided {@link DiscoveryCallback}.
+     * @param serviceType - The discovery type to look for.
+     * @param discoveryCallback - The callback interface.
+     */
     public void startDiscovery(@NonNull  String serviceType, @NonNull  DiscoveryCallback discoveryCallback) {
         this.discoveryCallback = discoveryCallback;
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, this);
         Log.d(LOG_TAG, "startDiscovery() for : " + serviceType);
     }
 
+    /**
+     * Start looking up for the provided {@link DiscoveryType}. The results will be sent to the provided {@link DiscoveryCallback}.
+     * @param discoveryType - The discovery type to look for.
+     * @param discoveryCallback - The callback interface.
+     */
     public void startDiscovery(@NonNull DiscoveryType discoveryType, @NonNull DiscoveryCallback discoveryCallback) {
         startDiscovery(discoveryType.getProtocolType(), discoveryCallback);
     }
 
+    /**
+     * Stops the service to lookup for network devices with the given service type.
+     */
     public void stopDiscovery() {
         nsdManager.stopServiceDiscovery(this);
         Log.d(LOG_TAG, "stopDiscovery()");

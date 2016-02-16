@@ -110,7 +110,7 @@ public class SubnetScannerService extends AbstractService {
                         inetAddress = InetAddress.getByName(subNet + "." + String.valueOf(i));
                         scanResult.setIpAddress(inetAddress.getHostAddress());
                         scanResult.setHostName(inetAddress.getHostName());
-                        scanResult.setCanoncialHostName(inetAddress.getCanonicalHostName());
+                        scanResult.setCanonicalHostName(inetAddress.getCanonicalHostName());
                         if(inetAddress.isReachable(timeout)) {
                             scanResult.setReachable(true);
                         } else {
@@ -163,7 +163,7 @@ public class SubnetScannerService extends AbstractService {
                 ScanResult scanResult = new ScanResult();
                 scanResult.setIpAddress(inetAddress.getHostAddress());
                 scanResult.setHostName(inetAddress.getHostName());
-                scanResult.setCanoncialHostName(inetAddress.getCanonicalHostName());
+                scanResult.setCanonicalHostName(inetAddress.getCanonicalHostName());
                 try {
                     if(inetAddress.isReachable(timeout)) {
                         scanResult.setReachable(true);

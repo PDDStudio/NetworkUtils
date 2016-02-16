@@ -23,8 +23,6 @@ import com.pddstudio.networkutils.model.ConnectionInformation;
 import com.pddstudio.networkutils.model.PortResponse;
 import com.pddstudio.networkutils.model.ScanResult;
 
-import java.lang.reflect.Method;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String SERVICE_TYPE_DISPLAY = "_barco-dramp._tcp.";
@@ -219,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             if(((ScanResult) processUpdate).isReachable()) {
                 Toast.makeText(MainActivity.this, "onProcessUpdate() : Target Address: " + ((ScanResult) processUpdate).getIpAddress(), Toast.LENGTH_SHORT).show();
                 ScanResult scanResult = (ScanResult) processUpdate;
-                Log.d("MainActivity", "ADDRESS: " + scanResult.getIpAddress() + " NAME: " + scanResult.getHostName() + " CANONCIAL NAME: " + scanResult.getCanoncialHostName());
+                Log.d("MainActivity", "ADDRESS: " + scanResult.getIpAddress() + " NAME: " + scanResult.getHostName() + " CANONCIAL NAME: " + scanResult.getCanonicalHostName());
             }
         }
     };

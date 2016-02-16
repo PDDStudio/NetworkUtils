@@ -7,12 +7,15 @@ import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * Utility class for various IP-Address related stuff.
  */
 public class IpUtils {
 
+    /**
+     * Returns the current device's local IP-Address.
+     * @param context - The caller's Context.
+     * @return The IP-Address as String.
+     */
     public static String getCurrentIpAddress(Context context) {
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInf = wm.getConnectionInfo();

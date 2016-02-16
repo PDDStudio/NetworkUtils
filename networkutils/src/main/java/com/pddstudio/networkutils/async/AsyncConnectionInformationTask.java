@@ -13,9 +13,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * An asynchronous task to retrieve an {@link ConnectionInformation} instance.
+ * The result will be given to the provided {@link ProcessCallback} interface.
  */
 public class AsyncConnectionInformationTask extends AsyncTask<Void, Void, ConnectionInformation> {
 

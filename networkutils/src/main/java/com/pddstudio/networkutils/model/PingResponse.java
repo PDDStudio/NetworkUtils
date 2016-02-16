@@ -1,9 +1,7 @@
 package com.pddstudio.networkutils.model;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * The result type for {@link com.pddstudio.networkutils.interfaces.ProcessCallback} calls when using {@link com.pddstudio.networkutils.PingService}
  */
 public class PingResponse {
 
@@ -11,6 +9,10 @@ public class PingResponse {
 
     public PingResponse() {}
 
+    /**
+     * Returns the String of the Ping's response.
+     * @return The String of the Ping's response.
+     */
     public String getResponseMessage() {
         return responseMessage;
     }

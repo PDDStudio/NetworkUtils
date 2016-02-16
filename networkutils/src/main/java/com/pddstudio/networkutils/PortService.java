@@ -10,9 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * A Service to scan for open ports (TCP) on a given target.
  */
 public class PortService extends AbstractService {
 
@@ -28,21 +26,45 @@ public class PortService extends AbstractService {
         this.portList = new LinkedList<>();
     }
 
+    /**
+     * Sets the target address (by default localhost) where to scan for open ports.
+     * @param targetAddress - The target address.
+     * @return The current PortService instance.
+     */
     public PortService setTargetAddress(String targetAddress) {
         this.targetAddress = targetAddress;
         return this;
     }
 
+    /**
+     * Adds the specified port to the list for required ports to scan for.
+     * @param port - the port to scan for.
+     * @return The current PortService instance.
+     */
     public PortService addPort(int port) {
-        this.portList.add(port);
+        if(port > 0 && port < 65535) this.portList.add(port);
         return this;
     }
 
+    /**
+     * Adds the specified ports to the list of required ports to scan for.
+     * @param ports - The ports to scan for, separated by comma [,]
+     * @return The current PortService instance.
+     */
     public PortService addPorts(Integer... ports) {
-        this.portList.addAll(Arrays.asList(ports));
+        for(int port : ports) {
+            if (port > 0 && port < 665535) this.portList.add(port);
+        }
         return this;
     }
 
+    /**
+     * Adds the specified range of ports using the provided start- and endpoint.
+     * For example using {@link PortService#addPortRange(int, int)} with a range of 1, 900 will add all ports from 1 until 900 to the list of required ports to scan for.
+     * @param from - The port range's starting point.
+     * @param until - The port range's ending point.
+     * @return The current PortService instance.
+     */
     public PortService addPortRange(int from, int until) {
         if(until > 65535) until = 65535;
         if(from < until) {
@@ -53,15 +75,26 @@ public class PortService extends AbstractService {
         return this;
     }
 
+    /**
+     * Starts the scanning process.
+     */
     public void scan() {
         asyncPortTask = new AsyncPortTask(this, targetAddress, portList, processCallback);
         asyncPortTask.execute();
     }
 
+    /**
+     * Stops the scanning process.
+     */
     public void stop() {
         if(asyncPortTask != null && !asyncPortTask.isCancelled()) asyncPortTask.cancel(true);
     }
 
+    /**
+     * The return type of this service.
+     * Objects retrieved via {@link ProcessCallback#onProcessUpdate(Object)} must be casted to {@link PortResponse} in order to be able to work with the response.
+     * @return {@link PortResponse}
+     */
     @Override
     public Object getResponseType() {
         return new PortResponse();

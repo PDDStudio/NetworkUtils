@@ -3,9 +3,7 @@ package com.pddstudio.networkutils.model;
 import java.net.InetAddress;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * The result type for {@link com.pddstudio.networkutils.interfaces.ProcessCallback} calls when using {@link com.pddstudio.networkutils.SubnetScannerService}
  */
 public class ScanResult {
 
@@ -16,6 +14,10 @@ public class ScanResult {
 
     public ScanResult() {}
 
+    /**
+     * Returns the target's IP-Address.
+     * @return The target's IP-Address.
+     */
     public String getIpAddress() {
         return ipAddress;
     }
@@ -24,6 +26,10 @@ public class ScanResult {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     * Returns whether the target was reachable or not.
+     * @return true if the target was reachable, false if not.
+     */
     public boolean isReachable() {
         return reachable;
     }
@@ -32,6 +38,10 @@ public class ScanResult {
         this.reachable = reachable;
     }
 
+    /**
+     * Returns the host name of the target (if any).
+     * @return The host name of the target (if any).
+     */
     public String getHostName() {
         return hostName;
     }
@@ -40,11 +50,15 @@ public class ScanResult {
         this.hostName = hostName;
     }
 
-    public String getCanoncialHostName() {
+    /**
+     * Returns the canonical host name (if any).
+     * @return The canonical host name (if any).
+     */
+    public String getCanonicalHostName() {
         return canonicalHostName;
     }
 
-    public void setCanoncialHostName(String canoncialHostName) {
+    public void setCanonicalHostName(String canoncialHostName) {
         this.canonicalHostName = canoncialHostName;
     }
 }

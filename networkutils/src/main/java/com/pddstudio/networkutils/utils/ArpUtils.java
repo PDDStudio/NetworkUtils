@@ -13,12 +13,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This Class was created by Patrick J
- * on 12.02.16. For more Details and Licensing
- * have a look at the README.md
+ * Utility class to retrieve information about the current ARP list.
  */
 public class ArpUtils {
 
+    /**
+     * Reads the current ARP list and returns a List of {@link ArpInfo} instances.
+     * @return A list of {@link ArpInfo} instances.
+     */
     public static List<ArpInfo> fetchArpList() {
         List<ArpInfo> arpInfos = new LinkedList<>();
         try {
@@ -40,6 +42,11 @@ public class ArpUtils {
         return arpInfos;
     }
 
+    /**
+     * Checks whether an IP-Address exists or not (in the ARP List)
+     * @param ipAddress - The IP-Address to check for.
+     * @return True if IP-Address exist, false if not.
+     */
     public static boolean ipAddressExist(String ipAddress) {
         for(ArpInfo arpInfo : fetchArpList()) {
             if(arpInfo.getIpAddress().toLowerCase().equals(ipAddress.toLowerCase())) return true;
@@ -47,6 +54,11 @@ public class ArpUtils {
         return false;
     }
 
+    /**
+     * Checks whether an Mac-Adress exists or not (in the ARP List)
+     * @param macAddress - The Mac-Address to check for.
+     * @return True if Mac-Address exist, false if not.
+     */
     public static boolean macAddressExist(String macAddress) {
         for(ArpInfo arpInfo : fetchArpList()) {
             if(arpInfo.getMacAddress().toLowerCase().equals(macAddress.toLowerCase())) return true;
@@ -54,6 +66,12 @@ public class ArpUtils {
         return false;
     }
 
+    /**
+     * Looks up the current ARP list and returns an {@link ArpInfo} instance for the given IP-Address.
+     * If not matching entry was found this method will return null.
+     * @param ipAddress - The IP-Address to lookup.
+     * @return An {@link ArpInfo} instance with the information for the given IP-Address.
+     */
     @Nullable
     public static ArpInfo getArpInfoForIpAddress(String ipAddress) {
         if(!ipAddressExist(ipAddress)) return null;
@@ -63,6 +81,12 @@ public class ArpUtils {
         return null;
     }
 
+    /**
+     * Looks up the current ARP list and returns an {@link ArpInfo} instance for the given Mac-Address.
+     * If no matching entry was found this method will return null.
+     * @param macAddress - The Mac-Address to lookup.
+     * @return An {@link ArpInfo} instance with the information for the given Mac-Address.
+     */
     @Nullable
     public static ArpInfo getArpInfoForMacAddress(String macAddress) {
         if(!macAddressExist(macAddress)) return null;
