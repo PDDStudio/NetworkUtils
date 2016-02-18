@@ -28,6 +28,8 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 
 [![Minimum SDK](https://img.shields.io/badge/Min.%20SDK-16-blue.svg)](https://github.com/PDDStudio/NetworkUtils)
 
+[![GitHub issues](https://img.shields.io/github/issues/PDDStudio/NetworkUtils.svg)](https://github.com/PDDStudio/NetworkUtils/issues)
+
 #### Repository
 NetworkUtils is a Free and OpenSource Android Library which can be found on [GitHub](https://github.com/PDDStudio/NetworkUtils).
 
