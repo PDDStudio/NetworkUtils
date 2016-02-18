@@ -44,8 +44,6 @@ dependencies {
 ## Library Features Overview
 Down below you can find a list of all current features the library comes with.
 
-**Note:** *Almost* all features in this library can either be requested *synchronous* or *asynchronous*.
-
 #### General Overview
 
 - Simple Network Utilities (like getting the current IP-Address, and more...)
@@ -129,6 +127,6 @@ Synchronous Operations are supposed to be called only on already existing backgr
 *WIP*
 
 ##Asynchronous Operations
-Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide.
+Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide. Asynchronous operations do always require a callback as parameter.
 
 *WIP*
