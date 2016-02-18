@@ -15,6 +15,9 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 3. [Installation](https://github.com/PDDStudio/NetworkUtils#installation)
 4. [Synchroneous Calls](https://github.com/PDDStudio/NetworkUtils#synchronous-operations)
 5. [Asynchroneous Calls](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations)
+6. ToDo List
+7. About & Contact
+8. License
 
 ---
 
@@ -22,6 +25,8 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.pddstudio/networkutils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.pddstudio/networkutils)
+
+[![Minimum SDK](https://img.shields.io/badge/Min.%20SDK-16-blue.svg)]
 
 #### Repository
 NetworkUtils is a Free and OpenSource Android Library which can be found on [GitHub](https://github.com/PDDStudio/NetworkUtils).
@@ -128,5 +133,17 @@ Synchronous Operations are supposed to be called only on already existing backgr
 
 ##Asynchronous Operations
 Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide. Asynchronous operations do always require a callback as parameter.
+
+*WIP*
+
+##ToDo List
+
+*WIP*
+
+##About & Contact
+
+*WIP*
+
+##License
 
 *WIP*
