@@ -13,12 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.pddstudio.networkingdemo.fragments.ArpInfoFragment;
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.PingService;
 import com.pddstudio.networkutils.SubnetScannerService;
 import com.pddstudio.networkutils.abstracts.SimpleDiscoveryListener;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
+import com.pddstudio.networkutils.model.ArpInfo;
 import com.pddstudio.networkutils.model.ConnectionInformation;
 import com.pddstudio.networkutils.model.PortResponse;
 import com.pddstudio.networkutils.model.ScanResult;
@@ -35,20 +40,34 @@ public class MainActivity extends AppCompatActivity {
     private static final String SERVICE_TYPE_REMOTE_DISK_MANAGEMENT = "_udisks-ssh._tcp";
     private static final String SERVICE_TYPE_RTSP = "_rtsp._tcp";
 
+    private static final int ITEM_ARP_INFO = 0;
+    private static final int ITEM_CONNECTION_INFO = 1;
+    private static final int ITEM_DISCOVERY = 2;
+    private static final int ITEM_PORT_SCAN = 3;
+    private static final int ITEM_SUBNET_SCAN = 4;
+
     PingService pingService;
     SubnetScannerService subnetScannerService;
+    private Drawer drawer;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
-
+        loadDrawer(savedInstanceState);
        /* for(ArpInfo arpInfo : NetworkUtils.get(this).getArpInfoList()) {
             Log.d("MainActivity" , "ARP-IP: " + arpInfo.getIpAddress() + " ARP-MAC: " + arpInfo.getMacAddress());
         }*/
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentPlaceholder, new ArpInfoFragment())
+                .addToBackStack("ARPINFOFRAGMENT")
+                .commit();
 
         /*new Thread(new Runnable() {
             @Override
@@ -143,6 +162,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void loadDrawer(Bundle savedInstanceState) {
+        drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withSavedInstance(savedInstanceState)
+                .withActionBarDrawerToggleAnimated(true)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withIdentifier(ITEM_ARP_INFO).withName(R.string.drawer_item_arp_info),
+                        new PrimaryDrawerItem().withIdentifier(ITEM_CONNECTION_INFO).withName(R.string.drawer_item_connection_info),
+                        new PrimaryDrawerItem().withIdentifier(ITEM_DISCOVERY).withName(R.string.drawer_item_discovery),
+                        new PrimaryDrawerItem().withIdentifier(ITEM_PORT_SCAN).withName(R.string.drawer_item_port_scanner),
+                        new PrimaryDrawerItem().withIdentifier(ITEM_SUBNET_SCAN).withName(R.string.drawer_item_subnet_scanner)
+                )
+                .build();
     }
 
     @Override

@@ -24,5 +24,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
     compile project(':networkutils')
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.2@aar') {
+        transitive = true
+    }
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.2@aar') {
+        transitive = true
+    }
+    compile('com.mikepenz:materialdrawer:5.0.0@aar') {
+        transitive = true
+    }
+    compile 'inject:inject:1.0.4'
 }
