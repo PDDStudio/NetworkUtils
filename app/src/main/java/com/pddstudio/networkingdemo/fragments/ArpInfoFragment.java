@@ -28,9 +28,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.DataAdapter;
+import com.pddstudio.networkingdemo.adapters.items.ArpInfoItem;
 import com.pddstudio.networkutils.NetworkUtils;
+import com.pddstudio.networkutils.model.ArpInfo;
 
 import io.inject.InjectView;
 import io.inject.Injector;
@@ -40,6 +43,7 @@ public class ArpInfoFragment extends Fragment {
     @InjectView(R.id.arpRecyclerView) private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private DataAdapter dataAdapter;
+    private FastItemAdapter fastItemAdapter;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstance) {
@@ -55,10 +59,15 @@ public class ArpInfoFragment extends Fragment {
 
     private void fetchArpInfo() {
         layoutManager = new LinearLayoutManager(getContext());
-        dataAdapter = new DataAdapter(NetworkUtils.get(getContext(), false).getArpInfoList());
+        //dataAdapter = new DataAdapter(NetworkUtils.get(getContext(), false).getArpInfoList());
+        fastItemAdapter = new FastItemAdapter();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(dataAdapter);
+        recyclerView.setAdapter(fastItemAdapter);
+        for(ArpInfo arpInfo : NetworkUtils.get(getContext(), false).getArpInfoList()) {
+            ArpInfoItem arpInfoItem = new ArpInfoItem(arpInfo.getIpAddress(), arpInfo.getMacAddress());
+            fastItemAdapter.add(arpInfoItem);
+        }
     }
 
 }

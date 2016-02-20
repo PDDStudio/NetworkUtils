@@ -7,4 +7,7 @@
     <string name="drawer_item_discovery">Discovery Service</string>
     <string name="drawer_item_port_scanner">Port Scanner</string>
     <string name="drawer_item_subnet_scanner">Subnet Scanner</string>
+    <!-- ArpInfoItem Strings -->
+    <string name="arp_info_item_ip">IP Address</string>
+    <string name="arp_info_item_mac">Mac Address</string>
 </resources>

@@ -25,15 +25,20 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
+    //network utils
     compile project(':networkutils')
+    //material dialogs
     compile('com.github.afollestad.material-dialogs:core:0.8.5.2@aar') {
         transitive = true
     }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.2@aar') {
-        transitive = true
-    }
+    //material drawer
     compile('com.mikepenz:materialdrawer:5.0.0@aar') {
         transitive = true
     }
+    //fast adapter
+    compile('com.mikepenz:fastadapter:1.0.6@aar') {
+        transitive = true
+    }
+    //inject.io
     compile 'inject:inject:1.0.4'
 }

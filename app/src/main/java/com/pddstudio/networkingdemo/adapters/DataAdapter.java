@@ -108,8 +108,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         }
 
         private void assignArpInfo(View view) {
-            textItem1 = (TextView) view.findViewById(R.id.dataText1);
-            textItem2 = (TextView) view.findViewById(R.id.dataText2);
+            textItem1 = (TextView) view.findViewById(R.id.ipAddressView);
+            textItem2 = (TextView) view.findViewById(R.id.macAddressView);
         }
 
     }
