@@ -20,5 +20,7 @@ package com.pddstudio.networkingdemo.fragments;
  * have a look at the README.md
  */
 
-public class DiscoveryFragment {
+import android.support.v4.app.Fragment;
+
+public class DiscoveryFragment extends Fragment {
 }

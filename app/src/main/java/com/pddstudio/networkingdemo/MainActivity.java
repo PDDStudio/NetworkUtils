@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,10 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.pddstudio.networkingdemo.fragments.ArpInfoFragment;
+import com.pddstudio.networkingdemo.fragments.ConnectionInfoFragment;
+import com.pddstudio.networkingdemo.fragments.DiscoveryFragment;
+import com.pddstudio.networkingdemo.fragments.PortScannerFragment;
+import com.pddstudio.networkingdemo.fragments.SubnetScannerFragment;
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.PingService;
 import com.pddstudio.networkutils.SubnetScannerService;
@@ -49,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     PingService pingService;
     SubnetScannerService subnetScannerService;
     private Drawer drawer;
+    private AccountHeader accountHeader;
     private Toolbar toolbar;
 
     @Override
@@ -86,88 +97,24 @@ public class MainActivity extends AppCompatActivity {
 
         subnetScannerService = NetworkUtils.get(MainActivity.this, false).getSubNetScannerService(subnetScannerCallback).setTimeout(2000);
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NetworkUtils.get(MainActivity.this, false).getDiscoveryService().startDiscovery(DiscoveryType.WORKSTATION, new SimpleDiscoveryListener() {
-                    @Override
-                    public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
-                        Log.d("MainActivity", "Found Service: " + nsdServiceInfo.getServiceName());
-                    }
-                });
-                //Log.d("MainActivity", "Device Adblock active: " + NetworkUtils.get(MainActivity.this).checkDeviceUsesAdBlock());
-                /*if(pingService == null) {
-
-                    pingService = NetworkUtils.get(MainActivity.this).getPingService(new ProcessCallback() {
-                        @Override
-                        public void onProcessStarted(@NonNull String serviceName) {
-                            Log.d("MainActivity", "Process started: " + serviceName);
-                        }
-
-                        @Override
-                        public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
-                            Log.d("MainActivity", "Process failed: " + serviceName);
-                        }
-
-                        @Override
-                        public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
-                            Log.d("MainActivity", "Process finidshed: " + serviceName);
-                        }
-
-                        @Override
-                        public void onProcessUpdate(@NonNull Object processUpdate) {
-                            Log.d("MainActivity", "Ping Response: " + ((PingResponse) processUpdate).getResponseMessage());
-                        }
-                    }).setTargetAddress("www.google.com");
-
-                } else if(pingService.isRunning()) {
-                    pingService.destroy();
-                } else {
-                    pingService.start();
-                }*/
-
-               // NetworkUtils.get(MainActivity.this).getPortService(portScanCallback).setTargetAddress("localhost").addPortRange(1, 9000).scan();
-
-                if(subnetScannerService.isMultiThreadScanning()) {
-                    Log.d("MainActivity", "isMultiThreadScanning() : interrupting now!");
-                    subnetScannerService.interruptMultiThreadScanning();
-                } else {
-                    Log.d("MainActivity", "isMultiThreadScanning() : false -> starting now!");
-                    subnetScannerService.startMultiThreadScanning();
-                }
-
-                NetworkUtils.get(MainActivity.this, false).getPortService(new ProcessCallback() {
-                    @Override
-                    public void onProcessStarted(@NonNull String serviceName) {
-
-                    }
-
-                    @Override
-                    public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
-
-                    }
-
-                    @Override
-                    public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
-
-                    }
-
-                    @Override
-                    public void onProcessUpdate(@NonNull Object processUpdate) {
-                        PortResponse portResponse = (PortResponse) processUpdate;
-                        if(portResponse.isPortOpen()) Log.d("MainActivity", "Open Port detected: " + portResponse.getIpAddress());
-                    }
-                }).setTargetAddress(NetworkUtils.get(MainActivity.this, false).getCurrentIpAddress()).addPortRange(1, 9909).scan();
-
-            }
-        });
     }
 
     private void loadDrawer(Bundle savedInstanceState) {
+
+        accountHeader = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withDividerBelowHeader(true)
+                .withProfileImagesVisible(false)
+                .withSelectionListEnabled(false)
+                .withAlternativeProfileHeaderSwitching(false)
+                .addProfiles(new ProfileDrawerItem().withName(getString(R.string.app_name)).withEmail(String.format(getString(R.string.drawer_header_version), BuildConfig.VERSION_NAME)))
+                .withHeaderBackground(R.color.colorPrimary)
+                .build();
+
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withAccountHeader(accountHeader)
                 .withSavedInstance(savedInstanceState)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
@@ -177,7 +124,47 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withIdentifier(ITEM_PORT_SCAN).withName(R.string.drawer_item_port_scanner),
                         new PrimaryDrawerItem().withIdentifier(ITEM_SUBNET_SCAN).withName(R.string.drawer_item_subnet_scanner)
                 )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if(drawerItem != null) {
+                            if(drawerItem.getIdentifier() == ITEM_ARP_INFO) switchPage(new ArpInfoFragment());
+                            else if(drawerItem.getIdentifier() == ITEM_CONNECTION_INFO) switchPage(new ConnectionInfoFragment());
+                            else if(drawerItem.getIdentifier() == ITEM_DISCOVERY) switchPage(new DiscoveryFragment());
+                            else if(drawerItem.getIdentifier() == ITEM_PORT_SCAN) switchPage(new PortScannerFragment());
+                            else if(drawerItem.getIdentifier() == ITEM_SUBNET_SCAN) switchPage(new SubnetScannerFragment());
+                        }
+                        return true;
+                    }
+                })
                 .build();
+    }
+
+    private void switchPage(Fragment fragment) {
+        String fragmentTag = fragment.getClass().getSimpleName();
+        if(getSupportFragmentManager().findFragmentByTag(fragmentTag) == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentPlaceholder, fragment, fragment.getClass().getSimpleName())
+                    .addToBackStack(fragment.getClass().getSimpleName())
+                    .commit();
+        } else {
+            Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentPlaceholder, fragment1, fragment1.getClass().getSimpleName())
+                    .addToBackStack(fragment1.getClass().getSimpleName())
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

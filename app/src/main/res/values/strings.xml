@@ -2,6 +2,7 @@
     <string name="app_name">NetworkingDemo</string>
     <string name="action_settings">Settings</string>
     <!-- Drawer items -->
+    <string name="drawer_header_version">Version %s</string>
     <string name="drawer_item_arp_info">ARP Information</string>
     <string name="drawer_item_connection_info">Connection Information</string>
     <string name="drawer_item_discovery">Discovery Service</string>

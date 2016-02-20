@@ -20,5 +20,7 @@ package com.pddstudio.networkingdemo.fragments;
  * have a look at the README.md
  */
 
-public class ConnectionInfoFragment {
+import android.support.v4.app.Fragment;
+
+public class ConnectionInfoFragment extends Fragment {
 }
