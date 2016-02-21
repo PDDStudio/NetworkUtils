@@ -50,17 +50,18 @@ public class MainActivity extends AppCompatActivity {
     private static final String SERVICE_TYPE_REMOTE_DISK_MANAGEMENT = "_udisks-ssh._tcp";
     private static final String SERVICE_TYPE_RTSP = "_rtsp._tcp";
 
-    private static final int ITEM_ARP_INFO = 0;
-    private static final int ITEM_CONNECTION_INFO = 1;
-    private static final int ITEM_DISCOVERY = 2;
-    private static final int ITEM_PORT_SCAN = 3;
-    private static final int ITEM_SUBNET_SCAN = 4;
+    private static final int ITEM_ARP_INFO = 1;
+    private static final int ITEM_CONNECTION_INFO = 2;
+    private static final int ITEM_DISCOVERY = 3;
+    private static final int ITEM_PORT_SCAN = 4;
+    private static final int ITEM_SUBNET_SCAN = 5;
 
     PingService pingService;
     SubnetScannerService subnetScannerService;
     private Drawer drawer;
     private AccountHeader accountHeader;
     private Toolbar toolbar;
+    private long currentDrawerItem = ITEM_ARP_INFO;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -70,22 +71,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         loadDrawer(savedInstanceState);
-       /* for(ArpInfo arpInfo : NetworkUtils.get(this).getArpInfoList()) {
-            Log.d("MainActivity" , "ARP-IP: " + arpInfo.getIpAddress() + " ARP-MAC: " + arpInfo.getMacAddress());
-        }*/
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentPlaceholder, new ArpInfoFragment())
-                .addToBackStack("ARPINFOFRAGMENT")
+                .addToBackStack(null)
                 .commit();
-
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NetworkUtils.get(MainActivity.this).scanSubNet();
-            }
-        }).start();*/
 
         new Thread(new Runnable() {
             @Override
@@ -127,35 +118,28 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if(drawerItem != null) {
+                        if(drawerItem != null && drawerItem.getIdentifier() != currentDrawerItem) {
+                            currentDrawerItem = drawerItem.getIdentifier();
                             if(drawerItem.getIdentifier() == ITEM_ARP_INFO) switchPage(new ArpInfoFragment());
                             else if(drawerItem.getIdentifier() == ITEM_CONNECTION_INFO) switchPage(new ConnectionInfoFragment());
                             else if(drawerItem.getIdentifier() == ITEM_DISCOVERY) switchPage(new DiscoveryFragment());
                             else if(drawerItem.getIdentifier() == ITEM_PORT_SCAN) switchPage(new PortScannerFragment());
                             else if(drawerItem.getIdentifier() == ITEM_SUBNET_SCAN) switchPage(new SubnetScannerFragment());
                         }
+                        if(drawer.isDrawerOpen()) drawer.closeDrawer();
                         return true;
                     }
                 })
+                .withSelectedItem(ITEM_ARP_INFO)
                 .build();
     }
 
     private void switchPage(Fragment fragment) {
-        String fragmentTag = fragment.getClass().getSimpleName();
-        if(getSupportFragmentManager().findFragmentByTag(fragmentTag) == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentPlaceholder, fragment, fragment.getClass().getSimpleName())
-                    .addToBackStack(fragment.getClass().getSimpleName())
-                    .commit();
-        } else {
-            Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(fragmentTag);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentPlaceholder, fragment1, fragment1.getClass().getSimpleName())
-                    .addToBackStack(fragment1.getClass().getSimpleName())
-                    .commit();
-        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentPlaceholder, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
