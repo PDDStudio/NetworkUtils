@@ -16,7 +16,7 @@
 package com.pddstudio.networkingdemo.adapters.items;
 /*
  * This Class was created by Patrick J
- * on 20.02.16. For more Details and licensing information
+ * on 21.02.16. For more Details and licensing information
  * have a look at the README.md
  */
 
@@ -26,43 +26,46 @@ import android.widget.TextView;
 
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.pddstudio.networkingdemo.R;
+import com.pddstudio.networkutils.model.ScanResult;
 
-public class ArpInfoItem extends AbstractItem<ArpInfoItem, ArpInfoItem.ViewHolder> {
+public class ScanResultItem extends AbstractItem<ScanResultItem, ScanResultItem.ViewHolder> {
 
-    public final String ipAddress;
-    public final String macAddress;
+    private final ScanResult scanResult;
 
-    public ArpInfoItem(String ipAddress, String macAddress) {
-        this.ipAddress = ipAddress;
-        this.macAddress = macAddress;
+    public ScanResultItem(ScanResult scanResult) {
+        this.scanResult = scanResult;
     }
 
     @Override
     public int getType() {
-        return R.id.arp_info_item;
+        return R.id.scan_result_item;
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.item_arp_info;
+        return R.layout.item_scan_result;
     }
 
     @Override
     public void bindView(ViewHolder viewHolder) {
         super.bindView(viewHolder);
-        viewHolder.ipAddressView.setText(ipAddress);
-        viewHolder.macAddressView.setText(macAddress);
+        viewHolder.targetAddressView.setText(scanResult.getIpAddress());
+        viewHolder.targetNameView.setText(scanResult.getHostName());
+        viewHolder.targetReachableView.setText(scanResult.isReachable() + "");
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView ipAddressView;
-        TextView macAddressView;
+        TextView targetAddressView;
+        TextView targetNameView;
+        TextView targetReachableView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ipAddressView = (TextView) itemView.findViewById(R.id.ipAddressView);
-            macAddressView = (TextView) itemView.findViewById(R.id.macAddressView);
+            targetAddressView = (TextView) itemView.findViewById(R.id.targetAddressView);
+            targetNameView = (TextView) itemView.findViewById(R.id.targetNameView);
+            targetReachableView = (TextView) itemView.findViewById(R.id.targetReachableView);
         }
     }
+
 }

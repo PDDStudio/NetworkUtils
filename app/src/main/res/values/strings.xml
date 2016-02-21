@@ -8,7 +8,15 @@
     <string name="drawer_item_discovery">Discovery Service</string>
     <string name="drawer_item_port_scanner">Port Scanner</string>
     <string name="drawer_item_subnet_scanner">Subnet Scanner</string>
+    <!-- Toast and Dialog Strings -->
+    <string name="toast_subnet_scan_start">Network Scanning Started</string>
+    <string name="toast_subnet_scan_fail">Unable to scan Network</string>
+    <string name="toast_subnet_scan_finish">Network Scanning Finished</string>
     <!-- ArpInfoItem Strings -->
     <string name="arp_info_item_ip">IP Address</string>
     <string name="arp_info_item_mac">Mac Address</string>
+    <!-- ScanResultItem Strings -->
+    <string name="scan_result_target">Target Address</string>
+    <string name="scan_result_host">Target Name</string>
+    <string name="scan_result_reachable">Reachable</string>
 </resources>
