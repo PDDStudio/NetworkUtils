@@ -146,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(drawer.isDrawerOpen()) {
             drawer.closeDrawer();
+        } else if(currentDrawerItem != ITEM_ARP_INFO) {
+            drawer.setSelection(ITEM_ARP_INFO, true);
         } else {
-            super.onBackPressed();
+            this.finish();
+            System.exit(0);
         }
     }
 
