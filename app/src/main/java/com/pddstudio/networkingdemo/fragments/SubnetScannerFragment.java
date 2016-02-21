@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,9 +43,10 @@ import com.pddstudio.networkutils.model.ScanResult;
 import io.inject.InjectView;
 import io.inject.Injector;
 
-public class SubnetScannerFragment extends Fragment implements ProcessCallback {
+public class SubnetScannerFragment extends Fragment implements ProcessCallback, SwipeRefreshLayout.OnRefreshListener {
 
     @InjectView(R.id.subnetRecyclerView) private RecyclerView recyclerView;
+    @InjectView(R.id.subnetSwipeRefresh) private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView.LayoutManager layoutManager;
     private FastItemAdapter fastItemAdapter;
 
@@ -64,6 +66,8 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(this);
         startScanningSubnet();
     }
 
@@ -84,16 +88,19 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback {
 
     @Override
     public void onProcessStarted(@NonNull String serviceName) {
+        swipeRefreshLayout.setRefreshing(true);
         Toast.makeText(getContext(), R.string.toast_subnet_scan_start, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+        swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), R.string.toast_subnet_scan_fail, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+        swipeRefreshLayout.setRefreshing(true);
         Toast.makeText(getContext(), R.string.toast_subnet_scan_finish, Toast.LENGTH_SHORT).show();
     }
 
@@ -102,5 +109,12 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback {
         ScanResult scanResult = (ScanResult) processUpdate;
         //only add targets if they're reachable
         if(scanResult.isReachable()) fastItemAdapter.add(new ScanResultItem(scanResult));
+    }
+
+    @Override
+    public void onRefresh() {
+        stopScanningSubnet();
+        fastItemAdapter.clear();
+        startScanningSubnet();
     }
 }
