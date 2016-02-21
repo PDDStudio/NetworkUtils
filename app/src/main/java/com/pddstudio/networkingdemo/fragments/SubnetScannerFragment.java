@@ -100,6 +100,7 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback {
     @Override
     public void onProcessUpdate(@NonNull Object processUpdate) {
         ScanResult scanResult = (ScanResult) processUpdate;
-        fastItemAdapter.add(new ScanResultItem(scanResult));
+        //only add targets if they're reachable
+        if(scanResult.isReachable()) fastItemAdapter.add(new ScanResultItem(scanResult));
     }
 }
