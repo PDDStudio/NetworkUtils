@@ -46,7 +46,7 @@ public class DiscoveryService implements NsdManager.DiscoveryListener {
      */
     public void startDiscovery(@NonNull  String serviceType, @NonNull  DiscoveryCallback discoveryCallback) {
         this.discoveryCallback = discoveryCallback;
-        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, this);
+        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, DiscoveryService.this);
         Log.d(LOG_TAG, "startDiscovery() for : " + serviceType);
     }
 
@@ -63,7 +63,7 @@ public class DiscoveryService implements NsdManager.DiscoveryListener {
      * Stops the service to lookup for network devices with the given service type.
      */
     public void stopDiscovery() {
-        nsdManager.stopServiceDiscovery(this);
+        nsdManager.stopServiceDiscovery(DiscoveryService.this);
         Log.d(LOG_TAG, "stopDiscovery()");
     }
 
