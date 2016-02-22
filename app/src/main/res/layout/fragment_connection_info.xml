@@ -14,10 +14,15 @@
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
-<resources>
-    <item name="intro_item" type="id" />
-    <item name="arp_info_item" type="id" />
-    <item name="scan_result_item" type="id" />
-    <item name="port_scan_item" type="id" />
-    <item name="con_info_item" type="id" />
-</resources>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/conSwipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/conRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</android.support.v4.widget.SwipeRefreshLayout>

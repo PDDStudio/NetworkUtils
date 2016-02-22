@@ -20,7 +20,84 @@ package com.pddstudio.networkingdemo.fragments;
  * have a look at the README.md
  */
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-public class ConnectionInfoFragment extends Fragment {
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.pddstudio.networkingdemo.R;
+import com.pddstudio.networkingdemo.adapters.items.ConnectionInformationItem;
+import com.pddstudio.networkutils.NetworkUtils;
+import com.pddstudio.networkutils.interfaces.ProcessCallback;
+import com.pddstudio.networkutils.model.ConnectionInformation;
+
+import io.inject.InjectView;
+import io.inject.Injector;
+
+public class ConnectionInfoFragment extends Fragment implements ProcessCallback, SwipeRefreshLayout.OnRefreshListener {
+
+    @InjectView(R.id.conSwipeRefresh) private SwipeRefreshLayout swipeRefreshLayout;
+    @InjectView(R.id.conRecyclerView) private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private FastItemAdapter fastItemAdapter;
+
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        return layoutInflater.inflate(R.layout.fragment_connection_info, viewGroup, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Injector.inject(this, view);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        layoutManager = new LinearLayoutManager(getContext());
+        fastItemAdapter = new FastItemAdapter();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(fastItemAdapter);
+    }
+
+    private void fetchConnectionInfo() {
+        NetworkUtils.get(getContext(), false).getConnectionInformation(this);
+    }
+
+    @Override
+    public void onProcessStarted(@NonNull String serviceName) {
+        swipeRefreshLayout.setRefreshing(true);
+        Toast.makeText(getContext(), R.string.toast_con_info_start, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProcessFailed(@NonNull String serviceName, @Nullable String errorMessage, int errorCode) {
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getContext(), R.string.toast_con_info_fail, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProcessFinished(@NonNull String serviceName, @Nullable String endMessage) {
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getContext(), R.string.toast_con_info_finish, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProcessUpdate(@NonNull Object processUpdate) {
+        ConnectionInformation connectionInformation = (ConnectionInformation) processUpdate;
+        ConnectionInformationItem connectionInformationItem = new ConnectionInformationItem(connectionInformation);
+        fastItemAdapter.add(connectionInformationItem);
+    }
+
+    @Override
+    public void onRefresh() {
+        fastItemAdapter.clear();
+        fetchConnectionInfo();
+    }
 }

@@ -15,9 +15,12 @@
     <string name="toast_port_scan_start">Port Scanning Started</string>
     <string name="toast_port_scan_fail">Port Scanning Failed</string>
     <string name="toast_port_scan_finish">Port Scanning Finished</string>
+    <string name="toast_con_info_start">Fetching Connection Information</string>
+    <string name="toast_con_info_fail">Failed to fetch Connection Information</string>
+    <string name="toast_con_info_finish">Finished Fetching Connection Information</string>
     <!-- IntroItem Strings -->
     <string name="intro_item_header">%s Introduction</string>
-    <string name="intro_port_description">Swipe to refresh to scan your device for open TCP ports.</string>
+    <string name="intro_port_description">Swipe to refresh to scan your device for open TCP ports.\nNote: This may take a while!</string>
     <string name="intro_arp_description">Swipe to refresh your ARP List.</string>
     <!-- ArpInfoItem Strings -->
     <string name="arp_info_item_ip">IP Address</string>
@@ -29,4 +32,10 @@
     <!-- PortResponseItem Strings -->
     <string name="port_response_port">Target Port</string>
     <string name="port_response_open">Port Open</string>
+    <!-- ConnectionInfoItem Strings -->
+    <string name="con_info_city">City</string>
+    <string name="con_info_time_zone">Time Zone</string>
+    <string name="con_info_zip">ZIP Code</string>
+    <string name="con_info_region">Region</string>
+    <string name="con_info_coords">Coordinates</string>
 </resources>
