@@ -22,6 +22,7 @@ package com.pddstudio.networkingdemo.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.itemanimators.AlphaInAnimator;
+import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.DataAdapter;
 import com.pddstudio.networkingdemo.adapters.items.ArpInfoItem;
@@ -38,9 +41,10 @@ import com.pddstudio.networkutils.model.ArpInfo;
 import io.inject.InjectView;
 import io.inject.Injector;
 
-public class ArpInfoFragment extends Fragment {
+public class ArpInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @InjectView(R.id.arpRecyclerView) private RecyclerView recyclerView;
+    @InjectView(R.id.arpSwipeRefresh) private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView.LayoutManager layoutManager;
     private DataAdapter dataAdapter;
     private FastItemAdapter fastItemAdapter;
@@ -54,6 +58,8 @@ public class ArpInfoFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Injector.inject(this, view);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(this);
         fetchArpInfo();
     }
 
@@ -62,6 +68,7 @@ public class ArpInfoFragment extends Fragment {
         //dataAdapter = new DataAdapter(NetworkUtils.get(getContext(), false).getArpInfoList());
         fastItemAdapter = new FastItemAdapter();
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new AlphaInAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
         for(ArpInfo arpInfo : NetworkUtils.get(getContext(), false).getArpInfoList()) {
@@ -70,4 +77,14 @@ public class ArpInfoFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        fastItemAdapter.clear();
+        for(ArpInfo arpInfo : NetworkUtils.get(getContext(), false).getArpInfoList()) {
+            ArpInfoItem arpInfoItem = new ArpInfoItem(arpInfo.getIpAddress(), arpInfo.getMacAddress());
+            fastItemAdapter.add(arpInfoItem);
+        }
+        swipeRefreshLayout.setRefreshing(false);
+    }
 }
