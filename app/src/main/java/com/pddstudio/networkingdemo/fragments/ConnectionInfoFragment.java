@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.items.ConnectionInformationItem;
+import com.pddstudio.networkingdemo.adapters.items.InfoItem;
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.interfaces.ProcessCallback;
 import com.pddstudio.networkutils.model.ConnectionInformation;
@@ -64,6 +65,8 @@ public class ConnectionInfoFragment extends Fragment implements ProcessCallback,
         fastItemAdapter = new FastItemAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
+        InfoItem infoItem = new InfoItem(getString(R.string.intro_item_header, "Connection-Information"), getString(R.string.intro_con_desc));
+        fastItemAdapter.add(infoItem);
     }
 
     private void fetchConnectionInfo() {
@@ -93,6 +96,7 @@ public class ConnectionInfoFragment extends Fragment implements ProcessCallback,
         ConnectionInformation connectionInformation = (ConnectionInformation) processUpdate;
         ConnectionInformationItem connectionInformationItem = new ConnectionInformationItem(connectionInformation);
         fastItemAdapter.add(connectionInformationItem);
+        onProcessFinished("", null);
     }
 
     @Override

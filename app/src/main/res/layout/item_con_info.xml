@@ -30,12 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/scan_result_target"
+            android:text="@string/con_info_city"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/targetAddressView"
+            android:id="@+id/conCityView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -45,12 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/scan_result_host"
+            android:text="@string/con_info_coords"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/targetNameView"
+            android:id="@+id/conCoordinatesView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -60,15 +60,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/scan_result_reachable"
+            android:text="@string/con_info_region"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/targetReachableView"
+            android:id="@+id/conRegionView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/con_info_time_zone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/conTimeZoneView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/con_info_zip"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/conZipView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
     </LinearLayout>
 

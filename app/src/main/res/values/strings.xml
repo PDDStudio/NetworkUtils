@@ -22,6 +22,7 @@
     <string name="intro_item_header">%s Introduction</string>
     <string name="intro_port_description">Swipe to refresh to scan your device for open TCP ports.\nNote: This may take a while!</string>
     <string name="intro_arp_description">Swipe to refresh your ARP List.</string>
+    <string name="intro_con_desc">Swipe to fetch information about your current network connection.</string>
     <!-- ArpInfoItem Strings -->
     <string name="arp_info_item_ip">IP Address</string>
     <string name="arp_info_item_mac">Mac Address</string>

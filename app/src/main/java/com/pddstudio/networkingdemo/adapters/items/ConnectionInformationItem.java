@@ -22,6 +22,7 @@ package com.pddstudio.networkingdemo.adapters.items;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.pddstudio.networkingdemo.R;
@@ -48,13 +49,28 @@ public class ConnectionInformationItem extends AbstractItem<ConnectionInformatio
     @Override
     public void bindView(ViewHolder viewHolder) {
         super.bindView(viewHolder);
-        connectionInformation.
+        viewHolder.cityTextView.setText(connectionInformation.getCity() + " (" + connectionInformation.getCountry() + " | " + connectionInformation.getCountryCode() + ")");
+        viewHolder.coordinatesTextView.setText(connectionInformation.getLatitude() + " | " + connectionInformation.getLongitude());
+        viewHolder.regionTextView.setText(connectionInformation.getRegionName() + " (" + connectionInformation.getRegion() + ")");
+        viewHolder.timeZoneTextView.setText(connectionInformation.getTimezone());
+        viewHolder.zipCodeTextView.setText(connectionInformation.getZip());
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView cityTextView;
+        TextView coordinatesTextView;
+        TextView regionTextView;
+        TextView timeZoneTextView;
+        TextView zipCodeTextView;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            cityTextView = (TextView) itemView.findViewById(R.id.conCityView);
+            coordinatesTextView = (TextView) itemView.findViewById(R.id.conCoordinatesView);
+            regionTextView = (TextView) itemView.findViewById(R.id.conRegionView);
+            timeZoneTextView = (TextView) itemView.findViewById(R.id.conTimeZoneView);
+            zipCodeTextView = (TextView) itemView.findViewById(R.id.conZipView);
         }
     }
 }
