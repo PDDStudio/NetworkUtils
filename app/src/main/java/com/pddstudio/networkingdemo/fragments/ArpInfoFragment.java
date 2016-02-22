@@ -35,6 +35,7 @@ import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.DataAdapter;
 import com.pddstudio.networkingdemo.adapters.items.ArpInfoItem;
+import com.pddstudio.networkingdemo.adapters.items.InfoItem;
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.model.ArpInfo;
 
@@ -46,7 +47,6 @@ public class ArpInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @InjectView(R.id.arpRecyclerView) private RecyclerView recyclerView;
     @InjectView(R.id.arpSwipeRefresh) private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView.LayoutManager layoutManager;
-    private DataAdapter dataAdapter;
     private FastItemAdapter fastItemAdapter;
 
     @Override
@@ -71,6 +71,10 @@ public class ArpInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
         recyclerView.setItemAnimator(new AlphaInAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
+
+        InfoItem infoItem = new InfoItem(getString(R.string.intro_item_header, "ARP-List"), getString(R.string.intro_arp_description));
+        fastItemAdapter.add(infoItem);
+
         for(ArpInfo arpInfo : NetworkUtils.get(getContext(), false).getArpInfoList()) {
             ArpInfoItem arpInfoItem = new ArpInfoItem(arpInfo.getIpAddress(), arpInfo.getMacAddress());
             fastItemAdapter.add(arpInfoItem);
