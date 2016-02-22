@@ -20,7 +20,89 @@ package com.pddstudio.networkingdemo.fragments;
  * have a look at the README.md
  */
 
+import android.net.nsd.NsdServiceInfo;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-public class DiscoveryFragment extends Fragment {
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.IItem;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.pddstudio.networkingdemo.R;
+import com.pddstudio.networkingdemo.adapters.items.DiscoveryItem;
+import com.pddstudio.networkingdemo.adapters.items.DiscoveryListItem;
+import com.pddstudio.networkutils.DiscoveryService;
+import com.pddstudio.networkutils.NetworkUtils;
+import com.pddstudio.networkutils.enums.DiscoveryType;
+import com.pddstudio.networkutils.interfaces.DiscoveryCallback;
+import com.pddstudio.networkutils.interfaces.ProcessCallback;
+
+import io.inject.InjectView;
+import io.inject.Injector;
+
+public class DiscoveryFragment extends Fragment implements DiscoveryCallback, DiscoveryListItem.OnDiscoveryAction {
+
+    @InjectView(R.id.discoveryRecyclerView) private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private FastItemAdapter fastItemAdapter;
+
+    private DiscoveryService discoveryService;
+
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        return layoutInflater.inflate(R.layout.fragment_discovery, viewGroup, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Injector.inject(this, view);
+        layoutManager = new LinearLayoutManager(getContext());
+        fastItemAdapter = new FastItemAdapter();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(fastItemAdapter);
+        DiscoveryListItem discoveryListItem = new DiscoveryListItem(this);
+        fastItemAdapter.add(discoveryListItem);
+        discoveryService = NetworkUtils.get(getContext(), false).getDiscoveryService();
+    }
+
+    @Override
+    public void onStartDiscovery(DiscoveryType discoveryType) {
+        discoveryService.startDiscovery(discoveryType, this);
+    }
+
+    @Override
+    public void onStopDiscovery() {
+        discoveryService.stopDiscovery();
+        Toast.makeText(getContext(), R.string.toast_discovery_finish, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStartDiscovery() {
+        Toast.makeText(getContext(), R.string.toast_discovery_start, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
+        DiscoveryItem discoveryItem = new DiscoveryItem(nsdServiceInfo);
+        fastItemAdapter.add(discoveryItem);
+    }
+
+    @Override
+    public void onServiceLost(NsdServiceInfo nsdServiceInfo) {
+
+    }
+
+    @Override
+    public void onDiscoveryFailed(int errorCode) {
+        Toast.makeText(getContext(), R.string.toast_discovery_fail, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -18,6 +18,9 @@
     <string name="toast_con_info_start">Fetching Connection Information</string>
     <string name="toast_con_info_fail">Failed to fetch Connection Information</string>
     <string name="toast_con_info_finish">Finished Fetching Connection Information</string>
+    <string name="toast_discovery_start">Discovery Service Started</string>
+    <string name="toast_discovery_fail">Discovery Service Failed</string>
+    <string name="toast_discovery_finish">Discovery Service Finished</string>
     <!-- IntroItem Strings -->
     <string name="intro_item_header">%s Introduction</string>
     <string name="intro_port_description">Swipe to refresh to scan your device for open TCP ports.\nNote: This may take a while!</string>
@@ -39,4 +42,12 @@
     <string name="con_info_zip">ZIP Code</string>
     <string name="con_info_region">Region</string>
     <string name="con_info_coords">Coordinates</string>
+    <!-- DiscoveryListItem Strings -->
+    <string name="discovery_list_header">Discovery Service</string>
+    <string name="discovery_list_body">Please select the type you want to start browsing for from the list below.</string>
+    <string name="discovery_btn_start">Start Discovery Service</string>
+    <string name="discovery_btn_stop">Stop Discovery Service</string>
+    <!-- DiscoveryItem Strings -->
+    <string name="discovery_item_service_name">Service Name</string>
+    <string name="discovery_item_service_type">Service Type</string>
 </resources>
