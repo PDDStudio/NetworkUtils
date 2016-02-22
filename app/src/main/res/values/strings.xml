@@ -12,6 +12,12 @@
     <string name="toast_subnet_scan_start">Network Scanning Started</string>
     <string name="toast_subnet_scan_fail">Unable to scan Network</string>
     <string name="toast_subnet_scan_finish">Network Scanning Finished</string>
+    <string name="toast_port_scan_start">Port Scanning Started</string>
+    <string name="toast_port_scan_fail">Port Scanning Failed</string>
+    <string name="toast_port_scan_finish">Port Scanning Finished</string>
+    <!-- IntroItem Strings -->
+    <string name="intro_item_header">%s Introduction</string>
+    <string name="intro_port_description">Swipe to refresh to scan your device for open TCP ports.</string>
     <!-- ArpInfoItem Strings -->
     <string name="arp_info_item_ip">IP Address</string>
     <string name="arp_info_item_mac">Mac Address</string>
@@ -19,4 +25,7 @@
     <string name="scan_result_target">Target Address</string>
     <string name="scan_result_host">Target Name</string>
     <string name="scan_result_reachable">Reachable</string>
+    <!-- PortResponseItem Strings -->
+    <string name="port_response_port">Target Port</string>
+    <string name="port_response_open">Port Open</string>
 </resources>
