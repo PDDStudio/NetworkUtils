@@ -31,6 +31,7 @@ import com.pddstudio.networkutils.model.ArpInfo;
 
 import java.util.List;
 
+@Deprecated
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     //object identifiers
@@ -82,6 +83,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         holder.textItem2.setText(arpInfo.getMacAddress());
     }
 
+    @Deprecated
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         int itemType;
