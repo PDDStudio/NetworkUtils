@@ -65,7 +65,7 @@ Down below you can find a list of all current features the library comes with.
 
 #### NetworkUtils Javadoc
 
-You can find the latest version of NetworkUtil's Javadoc [here]()
+You can find the latest version of NetworkUtil's Javadoc [here](http://pddstudio.github.io/NetworkUtils/jdoc/)
 
 ## Installation
 
