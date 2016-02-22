@@ -65,7 +65,6 @@ public class ArpInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private void fetchArpInfo() {
         layoutManager = new LinearLayoutManager(getContext());
-        //dataAdapter = new DataAdapter(NetworkUtils.get(getContext(), false).getArpInfoList());
         fastItemAdapter = new FastItemAdapter();
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new AlphaInAnimator());
