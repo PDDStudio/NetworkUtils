@@ -62,14 +62,14 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback, 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Injector.inject(this, view);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(this);
         layoutManager = new LinearLayoutManager(getContext());
         fastItemAdapter = new FastItemAdapter();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
         recyclerView.setItemAnimator(new SlideDownAlphaAnimator());
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
-        swipeRefreshLayout.setOnRefreshListener(this);
         startScanningSubnet();
     }
 
@@ -82,10 +82,12 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback, 
     private void startScanningSubnet() {
         subnetScannerService = NetworkUtils.get(getContext(), false).getSubNetScannerService(this);
         subnetScannerService.startMultiThreadScanning();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     private void stopScanningSubnet() {
         if(subnetScannerService != null && subnetScannerService.isMultiThreadScanning()) subnetScannerService.interruptMultiThreadScanning();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
