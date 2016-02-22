@@ -71,17 +71,17 @@ public class DiscoveryFragment extends Fragment implements DiscoveryCallback, Di
         recyclerView.setAdapter(fastItemAdapter);
         DiscoveryListItem discoveryListItem = new DiscoveryListItem(this);
         fastItemAdapter.add(discoveryListItem);
-        discoveryService = NetworkUtils.get(getContext(), false).getDiscoveryService();
     }
 
     @Override
     public void onStartDiscovery(DiscoveryType discoveryType) {
+        discoveryService = NetworkUtils.get(getContext(), false).getDiscoveryService();
         discoveryService.startDiscovery(discoveryType, this);
     }
 
     @Override
     public void onStopDiscovery() {
-        discoveryService.stopDiscovery();
+        discoveryService = null;
         Toast.makeText(getContext(), R.string.toast_discovery_finish, Toast.LENGTH_SHORT).show();
     }
 
