@@ -1,0 +1,7 @@
+com.pddstudio.networkutils
+com.pddstudio.networkutils.abstracts
+com.pddstudio.networkutils.async
+com.pddstudio.networkutils.enums
+com.pddstudio.networkutils.interfaces
+com.pddstudio.networkutils.model
+com.pddstudio.networkutils.utils
