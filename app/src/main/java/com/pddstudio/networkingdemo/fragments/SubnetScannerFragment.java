@@ -33,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.items.ScanResultItem;
 import com.pddstudio.networkutils.NetworkUtils;
@@ -66,6 +67,7 @@ public class SubnetScannerFragment extends Fragment implements ProcessCallback, 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(fastItemAdapter);
+        recyclerView.setItemAnimator(new SlideDownAlphaAnimator());
         swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(this);
         startScanningSubnet();

@@ -39,6 +39,10 @@ dependencies {
     compile('com.mikepenz:fastadapter:1.0.6@aar') {
         transitive = true
     }
+    //item animator
+    compile('com.mikepenz:itemanimators:0.2.1@aar') {
+        transitive = true
+    }
     //inject.io
     compile 'inject:inject:1.0.4'
 }
