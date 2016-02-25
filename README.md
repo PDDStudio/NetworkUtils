@@ -15,9 +15,9 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 3. [Installation](https://github.com/PDDStudio/NetworkUtils#installation)
 4. [Synchroneous Calls](https://github.com/PDDStudio/NetworkUtils#synchronous-operations)
 5. [Asynchroneous Calls](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations)
-6. ToDo List
-7. About & Contact
-8. License
+6. [ToDo List](https://github.com/PDDStudio/NetworkUtils#todo-list)
+7. [About & Contact](https://github.com/PDDStudio/NetworkUtils#about--contact)
+8. [License](https://github.com/PDDStudio/NetworkUtils#license)
 
 ---
 
