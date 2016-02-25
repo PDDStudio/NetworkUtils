@@ -6,20 +6,26 @@ Simple, fast and thread safe library that extends the existing Android Network-A
 ---
 
 ##Table of Contents
-1. [Gradle Dependency](https://github.com/PDDStudio/NetworkUtils#gradle-dependency)
+1. [Sample Application](https://github.com/PDDStudio/NetworkUtils#sample-application)
+2. [Gradle Dependency](https://github.com/PDDStudio/NetworkUtils#gradle-dependency)
 	1. [Repository](https://github.com/PDDStudio/NetworkUtils#repository)
 	2. [Dependency](https://github.com/PDDStudio/NetworkUtils#dependency)
-2. [Library Features Overview](https://github.com/PDDStudio/NetworkUtils#library-features-overview)
+3. [Library Features Overview](https://github.com/PDDStudio/NetworkUtils#library-features-overview)
 	1. [General Overview](https://github.com/PDDStudio/NetworkUtils#general-overview)
 	2. [NetworkUtils Javadoc](https://github.com/PDDStudio/NetworkUtils#networkutils-javadoc)
-3. [Installation](https://github.com/PDDStudio/NetworkUtils#installation)
-4. [Synchroneous Calls](https://github.com/PDDStudio/NetworkUtils#synchronous-operations)
-5. [Asynchroneous Calls](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations)
-6. [ToDo List](https://github.com/PDDStudio/NetworkUtils#todo-list)
-7. [About & Contact](https://github.com/PDDStudio/NetworkUtils#about--contact)
-8. [License](https://github.com/PDDStudio/NetworkUtils#license)
+4. [Installation](https://github.com/PDDStudio/NetworkUtils#installation)
+5. [Synchroneous Calls](https://github.com/PDDStudio/NetworkUtils#synchronous-operations)
+6. [Asynchroneous Calls](https://github.com/PDDStudio/NetworkUtils#asynchronous-operations)
+7. [ToDo List](https://github.com/PDDStudio/NetworkUtils#todo-list)
+8. [About & Contact](https://github.com/PDDStudio/NetworkUtils#about--contact)
+9. [License](https://github.com/PDDStudio/NetworkUtils#license)
 
 ---
+
+## Sample Application
+
+Please check the sample repository for a live-preview on how to use this library (of course this is only one of a few possibillities).
+You can download [the sample apk directly from this repository](https://github.com/PDDStudio/NetworkUtils/raw/master/networking-demo-sample.apk)
 
 ## Gradle Dependency
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
