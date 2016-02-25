@@ -134,16 +134,13 @@ That's it! Now you can continue with [synchronous](https://github.com/PDDStudio/
 ##Synchronous Operations
 Synchronous Operations are supposed to be called only on already existing background jobs, you won't be able to call a synchronous request in your application's UiThread.
 
-*WIP*
-
 ##Asynchronous Operations
 Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide. Asynchronous operations do always require a callback as parameter.
 
-*WIP*
-
 ##ToDo List
 
-*WIP*
+- Add proper samples to the Readme instead of the sample application
+- Implement Service which listens for network connection changes
 
 ##About & Contact
 - In case you've a question feel free to hit me up via E-Mail (patrick.pddstudio@googlemail.com) 
