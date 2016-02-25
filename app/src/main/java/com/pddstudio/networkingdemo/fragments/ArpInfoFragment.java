@@ -21,6 +21,7 @@ package com.pddstudio.networkingdemo.fragments;
  */
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,7 +61,12 @@ public class ArpInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
         Injector.inject(this, view);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(this);
-        fetchArpInfo();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fetchArpInfo();
+            }
+        }, 0);
     }
 
     private void fetchArpInfo() {
