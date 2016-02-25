@@ -44,6 +44,7 @@
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
 
 <ol>
+<li><a href="https://github.com/PDDStudio/NetworkUtils#sample-application">Sample Application</a></li>
 <li>
 <a href="https://github.com/PDDStudio/NetworkUtils#gradle-dependency">Gradle Dependency</a>
 
@@ -63,12 +64,18 @@
 <li><a href="https://github.com/PDDStudio/NetworkUtils#installation">Installation</a></li>
 <li><a href="https://github.com/PDDStudio/NetworkUtils#synchronous-operations">Synchroneous Calls</a></li>
 <li><a href="https://github.com/PDDStudio/NetworkUtils#asynchronous-operations">Asynchroneous Calls</a></li>
-<li>ToDo List</li>
-<li>About &amp; Contact</li>
-<li>License</li>
+<li><a href="https://github.com/PDDStudio/NetworkUtils#todo-list">ToDo List</a></li>
+<li><a href="https://github.com/PDDStudio/NetworkUtils#about--contact">About &amp; Contact</a></li>
+<li><a href="https://github.com/PDDStudio/NetworkUtils#license">License</a></li>
 </ol>
 
 <hr>
+
+<h2>
+<a id="sample-application" class="anchor" href="#sample-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample Application</h2>
+
+<p>Please check the sample repository for a live-preview on how to use this library (of course this is only one of a few possibillities).
+You can download <a href="https://github.com/PDDStudio/NetworkUtils/raw/master/networking-demo-sample.apk">the sample apk directly from this repository</a></p>
 
 <h2>
 <a id="gradle-dependency" class="anchor" href="#gradle-dependency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gradle Dependency</h2>
@@ -188,29 +195,45 @@
 
 <p>Synchronous Operations are supposed to be called only on already existing background jobs, you won't be able to call a synchronous request in your application's UiThread.</p>
 
-<p><em>WIP</em></p>
-
 <h2>
 <a id="asynchronous-operations" class="anchor" href="#asynchronous-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asynchronous Operations</h2>
 
 <p>Asynchronous Operations are supposed to be called from your application's UiThread. The Library will execute your request(s) in the background and notify you about changes via the interface you provide. Asynchronous operations do always require a callback as parameter.</p>
 
-<p><em>WIP</em></p>
-
 <h2>
 <a id="todo-list" class="anchor" href="#todo-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ToDo List</h2>
 
-<p><em>WIP</em></p>
+<ul>
+<li>Add proper samples to the Readme instead of the sample application</li>
+<li>Implement Service which listens for network connection changes</li>
+</ul>
 
 <h2>
 <a id="about--contact" class="anchor" href="#about--contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About &amp; Contact</h2>
 
-<p><em>WIP</em></p>
+<ul>
+<li>In case you've a question feel free to hit me up via E-Mail (<a href="mailto:patrick.pddstudio@googlemail.com">patrick.pddstudio@googlemail.com</a>) </li>
+<li>or <a href="http://plus.google.com/+PatrickJung42">Google+</a>
+</li>
+</ul>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 
-<p><em>WIP</em></p>
+<pre><code>Copyright 2016 Patrick J
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
       </section>
     </div>
 
