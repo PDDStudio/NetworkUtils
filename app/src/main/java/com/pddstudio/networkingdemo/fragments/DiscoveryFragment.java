@@ -93,7 +93,7 @@ public class DiscoveryFragment extends Fragment implements DiscoveryCallback, Di
     @Override
     public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
         DiscoveryItem discoveryItem = new DiscoveryItem(nsdServiceInfo);
-        fastItemAdapter.add(discoveryItem);
+        addItem(discoveryItem);
     }
 
     @Override
@@ -105,4 +105,9 @@ public class DiscoveryFragment extends Fragment implements DiscoveryCallback, Di
     public void onDiscoveryFailed(int errorCode) {
         Toast.makeText(getContext(), R.string.toast_discovery_fail, Toast.LENGTH_SHORT).show();
     }
+
+    private void addItem(DiscoveryItem discoveryItem) {
+        this.fastItemAdapter.add(discoveryItem);
+    }
+
 }
