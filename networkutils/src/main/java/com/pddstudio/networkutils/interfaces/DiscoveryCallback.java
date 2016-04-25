@@ -49,4 +49,15 @@ public interface DiscoveryCallback {
      * @param errorCode - The error code as {@linkplain Integer} value.
      */
     void onDiscoveryFailed(int errorCode);
+
+    /**
+     * Gets invoked in case the {@link com.pddstudio.networkutils.DiscoveryService} could be resolved.
+     * @param nsdServiceInfo
+     */
+    void onServiceResolved(NsdServiceInfo nsdServiceInfo);
+
+    /**
+     * Gets invoked in case the {@link com.pddstudio.networkutils.DiscoveryService} couldn't resolve the given {@link NsdServiceInfo}
+     */
+    void onServiceResolveFailed(NsdServiceInfo nsdServiceInfo, int errorCode);
 }

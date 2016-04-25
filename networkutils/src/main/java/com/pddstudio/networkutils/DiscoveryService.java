@@ -28,7 +28,7 @@ import com.pddstudio.networkutils.interfaces.DiscoveryCallback;
 /**
  * A Service for looking up several discovery types (Avahi/Bonjour/Zeroconf) on a network.
  */
-public class DiscoveryService implements NsdManager.DiscoveryListener {
+public class DiscoveryService implements NsdManager.DiscoveryListener, NsdManager.ResolveListener {
 
     private static final String LOG_TAG = "DiscoveryService";
 
@@ -67,6 +67,10 @@ public class DiscoveryService implements NsdManager.DiscoveryListener {
         Log.d(LOG_TAG, "stopDiscovery()");
     }
 
+    public void resolveService(NsdServiceInfo nsdServiceInfo) {
+        nsdManager.resolveService(nsdServiceInfo, this);
+    }
+
     @Override
     public void onStartDiscoveryFailed(String serviceType, int errorCode) {
         Log.d(LOG_TAG, "onStartDiscoveryFailed() : " + serviceType + " error code: " + errorCode);
@@ -102,4 +106,17 @@ public class DiscoveryService implements NsdManager.DiscoveryListener {
         Log.d(LOG_TAG, "onServiceLost() : "  + serviceInfo);
         discoveryCallback.onServiceLost(serviceInfo);
     }
+
+    @Override
+    public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+        Log.d(LOG_TAG, "onResolveFailed() : " + errorCode);
+        discoveryCallback.onServiceResolveFailed(serviceInfo, errorCode);
+    }
+
+    @Override
+    public void onServiceResolved(NsdServiceInfo serviceInfo) {
+        Log.d(LOG_TAG, "onServiceResolved() : " + serviceInfo.getServiceName());
+        discoveryCallback.onServiceResolved(serviceInfo);
+    }
+
 }
