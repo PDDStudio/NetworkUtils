@@ -102,7 +102,7 @@ public class DiscoveryFragment extends Fragment implements DiscoveryCallback, Di
 
     @Override
     public void onServiceResolved(NsdServiceInfo nsdServiceInfo) {
-        
+
     }
 
     @Override
