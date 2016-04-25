@@ -28,7 +28,7 @@ import com.pddstudio.networkutils.interfaces.DiscoveryCallback;
 /**
  * A Service for looking up several discovery types (Avahi/Bonjour/Zeroconf) on a network.
  */
-public class DiscoveryService implements NsdManager.DiscoveryListener, NsdManager.ResolveListener {
+public class DiscoveryService implements NsdManager.DiscoveryListener {
 
     private static final String LOG_TAG = "DiscoveryService";
 
@@ -68,7 +68,19 @@ public class DiscoveryService implements NsdManager.DiscoveryListener, NsdManage
     }
 
     public void resolveService(NsdServiceInfo nsdServiceInfo) {
-        nsdManager.resolveService(nsdServiceInfo, this);
+        nsdManager.resolveService(nsdServiceInfo, new NsdManager.ResolveListener() {
+            @Override
+            public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                Log.d(LOG_TAG, "onResolveFailed() : " + errorCode);
+                discoveryCallback.onServiceResolveFailed(serviceInfo, errorCode);
+            }
+
+            @Override
+            public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                Log.d(LOG_TAG, "onServiceResolved() : " + serviceInfo.getServiceName());
+                discoveryCallback.onServiceResolved(serviceInfo);
+            }
+        });
     }
 
     @Override
@@ -105,18 +117,6 @@ public class DiscoveryService implements NsdManager.DiscoveryListener, NsdManage
     public void onServiceLost(NsdServiceInfo serviceInfo) {
         Log.d(LOG_TAG, "onServiceLost() : "  + serviceInfo);
         discoveryCallback.onServiceLost(serviceInfo);
-    }
-
-    @Override
-    public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
-        Log.d(LOG_TAG, "onResolveFailed() : " + errorCode);
-        discoveryCallback.onServiceResolveFailed(serviceInfo, errorCode);
-    }
-
-    @Override
-    public void onServiceResolved(NsdServiceInfo serviceInfo) {
-        Log.d(LOG_TAG, "onServiceResolved() : " + serviceInfo.getServiceName());
-        discoveryCallback.onServiceResolved(serviceInfo);
     }
 
 }
