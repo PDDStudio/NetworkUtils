@@ -22,8 +22,6 @@ package com.pddstudio.networkingdemo.fragments;
 
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,9 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.pddstudio.networkingdemo.R;
 import com.pddstudio.networkingdemo.adapters.items.DiscoveryItem;
@@ -43,7 +38,6 @@ import com.pddstudio.networkutils.DiscoveryService;
 import com.pddstudio.networkutils.NetworkUtils;
 import com.pddstudio.networkutils.enums.DiscoveryType;
 import com.pddstudio.networkutils.interfaces.DiscoveryCallback;
-import com.pddstudio.networkutils.interfaces.ProcessCallback;
 
 import io.inject.InjectView;
 import io.inject.Injector;
@@ -104,6 +98,16 @@ public class DiscoveryFragment extends Fragment implements DiscoveryCallback, Di
     @Override
     public void onDiscoveryFailed(int errorCode) {
         Toast.makeText(getContext(), R.string.toast_discovery_fail, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onServiceResolved(NsdServiceInfo nsdServiceInfo) {
+        
+    }
+
+    @Override
+    public void onServiceResolveFailed(NsdServiceInfo nsdServiceInfo, int errorCode) {
+
     }
 
     private void addItem(DiscoveryItem discoveryItem) {
